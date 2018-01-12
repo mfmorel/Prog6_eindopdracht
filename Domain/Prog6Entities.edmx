@@ -23,7 +23,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Groote" Type="int" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="255" />
         </EntityType>
@@ -145,7 +145,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Groote" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Hotelkamer_type" Relationship="Self.FK_Hotelkamer_Hotelkamer_Type" FromRole="Hotelkamer" ToRole="Hotelkamer_type" />
