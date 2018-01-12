@@ -28,7 +28,6 @@ namespace Prog6.Controllers
         // GET: Tamagotchis
         public ActionResult Index()
         {
-            _tamagotchiRepository.Test();
             return View(_tamagotchiRepository.GetAll());
         }
 

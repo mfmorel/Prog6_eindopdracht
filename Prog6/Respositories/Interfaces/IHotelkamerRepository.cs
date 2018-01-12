@@ -15,5 +15,6 @@ namespace Prog6.Respositories.Interfaces
         void Create(HotelkamerModel hotelkamer);
         void Update(HotelkamerModel hotelkamer);
         void Delete(HotelkamerModel hotelkamer);
+        void Save();
     }
 }

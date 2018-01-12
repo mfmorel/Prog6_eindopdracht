@@ -9,11 +9,12 @@ namespace Prog6.Respositories.Interfaces
 {
     public interface IHotelkamerTypeRepository
     {
-        HotelkamerTypeModel Get(int id);
-        HotelkamerTypeModel Get(string name);
+        HotelkamerTypeModel Get(string id);
+        HotelkamerTypeModel GetByName(string name);
         List<HotelkamerTypeModel> GetAll();
         void Create(HotelkamerTypeModel hotelkamerTypeModel);
         void Update(HotelkamerTypeModel hotelkamerTypeModel);
         void Delete(HotelkamerTypeModel hotelkamerTypeModel);
+        void Save();
     }
 }

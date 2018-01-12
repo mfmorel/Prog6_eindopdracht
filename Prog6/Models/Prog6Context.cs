@@ -15,5 +15,8 @@ namespace Prog6.Models
         }
 
         public DbSet <Tamagotchi> Tamagotchis { get; set; }
+        public DbSet <Hotelkamer_effect> HotelkamerEffects { get; set; }
+        public DbSet <Hotelkamer> Hotelkamers { get; set; }
+        public DbSet <Hotelkamer_type> HotelkamerTypes { get; set; }
     }
 }

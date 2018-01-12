@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Prog6.Interfaces;
+using Prog6.Models;
 using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Controllers
@@ -24,8 +25,7 @@ namespace Prog6.Controllers
         // GET: Hotelkamers
         public ActionResult Index()
         {
-            var hotelkamers = db.GetContext().Hotelkamers.Include(h => h.Hotelkamer_type);
-            return View(hotelkamers.ToList());
+            return View(_hotelkamerRepository.GetAll());
         }
 
         // GET: Hotelkamers/Details/5
@@ -35,7 +35,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer hotelkamer = db.GetContext().Hotelkamers.Find(id);
+            HotelkamerModel hotelkamer = _hotelkamerRepository.Get(id.Value);
             if (hotelkamer == null)
             {
                 return HttpNotFound();
@@ -46,25 +46,23 @@ namespace Prog6.Controllers
         // GET: Hotelkamers/Create
         public ActionResult Create()
         {
-            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type");
             return View();
         }
 
         // POST: Hotelkamers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[Bind(Include = "Id,Groote,Type")] Hotelkamer hotelkamer
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Groote,Type")] Hotelkamer hotelkamer)
+        public ActionResult Create(HotelkamerModel hotelkamer)
         {
             if (ModelState.IsValid)
             {
-                db.GetContext().Hotelkamers.Add(hotelkamer);
-                db.GetContext().SaveChanges();
+                _hotelkamerRepository.Create(hotelkamer);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer.Type);
             return View(hotelkamer);
         }
 
@@ -75,29 +73,28 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer hotelkamer = db.GetContext().Hotelkamers.Find(id);
+            HotelkamerModel hotelkamer = _hotelkamerRepository.Get(id.Value);
             if (hotelkamer == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer.Type);
             return View(hotelkamer);
         }
 
         // POST: Hotelkamers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[Bind(Include = "Id,Groote,Type")] Hotelkamer hotelkamer
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Groote,Type")] Hotelkamer hotelkamer)
+        public ActionResult Edit(HotelkamerModel hotelkamer)
         {
             if (ModelState.IsValid)
             {
-                db.GetContext().Entry(hotelkamer).State = EntityState.Modified;
-                db.GetContext().SaveChanges();
+                _hotelkamerRepository.Update(hotelkamer);
+                _hotelkamerRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer.Type);
             return View(hotelkamer);
         }
 
@@ -108,7 +105,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer hotelkamer = db.GetContext().Hotelkamers.Find(id);
+            HotelkamerModel hotelkamer = _hotelkamerRepository.Get(id.Value);
             if (hotelkamer == null)
             {
                 return HttpNotFound();
@@ -121,9 +118,9 @@ namespace Prog6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Hotelkamer hotelkamer = db.GetContext().Hotelkamers.Find(id);
-            db.GetContext().Hotelkamers.Remove(hotelkamer);
-            db.GetContext().SaveChanges();
+            HotelkamerModel tamagotchi = _hotelkamerRepository.Get(id);
+            _hotelkamerRepository.Delete(tamagotchi);
+            _hotelkamerRepository.Save();
             return RedirectToAction("Index");
         }
 

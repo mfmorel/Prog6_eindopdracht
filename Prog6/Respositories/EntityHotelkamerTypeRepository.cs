@@ -9,12 +9,18 @@ namespace Prog6.Respositories
 {
     public class EntityHotelkamerTypeRepository : IHotelkamerTypeRepository
     {
-        public HotelkamerTypeModel Get(int id)
+        private Prog6Context _context;
+
+        public EntityHotelkamerTypeRepository(Prog6Context context)
+        {
+            _context = context;
+        }
+        public HotelkamerTypeModel Get(string id)
         {
             throw new NotImplementedException();
         }
 
-        public HotelkamerTypeModel Get(string name)
+        public HotelkamerTypeModel GetByName(string name)
         {
             throw new NotImplementedException();
         }
@@ -37,6 +43,11 @@ namespace Prog6.Respositories
         public void Delete(HotelkamerTypeModel tamagotchi)
         {
             throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            
         }
     }
 }

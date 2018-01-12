@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Prog6.Interfaces;
+using Prog6.Models;
+using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Controllers
 {
@@ -16,24 +18,16 @@ namespace Prog6.Controllers
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class Hotelkamer_typeController : Controller
     {
-        private IContext db;
-
-        public Hotelkamer_typeController()
+        private IHotelkamerTypeRepository _hotelkamerTypeRepository;
+        public Hotelkamer_typeController(IHotelkamerTypeRepository hotelkamerTypeRepository)
         {
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
-        }
-
-        [ImportingConstructor]
-        public Hotelkamer_typeController(IContext context)
-        {
-            db = context;
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+            _hotelkamerTypeRepository = hotelkamerTypeRepository;
         }
 
         // GET: Hotelkamer_type
         public ActionResult Index()
         {
-            return View(db.GetContext().Hotelkamer_type.ToList());
+            return View(_hotelkamerTypeRepository.GetAll());
         }
 
         // GET: Hotelkamer_type/Details/5
@@ -43,7 +37,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_type hotelkamer_type = db.GetContext().Hotelkamer_type.Find(id);
+            HotelkamerTypeModel hotelkamer_type = _hotelkamerTypeRepository.Get(id);
             if (hotelkamer_type == null)
             {
                 return HttpNotFound();
@@ -62,16 +56,15 @@ namespace Prog6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Type,Kosten")] Hotelkamer_type hotelkamer_type)
+        public ActionResult Create(HotelkamerTypeModel hotelkamerType)
         {
             if (ModelState.IsValid)
             {
-                db.GetContext().Hotelkamer_type.Add(hotelkamer_type);
-                db.GetContext().SaveChanges();
+                _hotelkamerTypeRepository.Create(hotelkamerType);
                 return RedirectToAction("Index");
             }
 
-            return View(hotelkamer_type);
+            return View(hotelkamerType);
         }
 
         // GET: Hotelkamer_type/Edit/5
@@ -81,12 +74,12 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_type hotelkamer_type = db.GetContext().Hotelkamer_type.Find(id);
-            if (hotelkamer_type == null)
+            HotelkamerTypeModel hotelKamerType = _hotelkamerTypeRepository.Get(id);
+            if (hotelKamerType == null)
             {
                 return HttpNotFound();
             }
-            return View(hotelkamer_type);
+            return View(hotelKamerType);
         }
 
         // POST: Hotelkamer_type/Edit/5
@@ -94,15 +87,15 @@ namespace Prog6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Type,Kosten")] Hotelkamer_type hotelkamer_type)
+        public ActionResult Edit(HotelkamerTypeModel hotelkamerType)
         {
             if (ModelState.IsValid)
             {
-                db.GetContext().Entry(hotelkamer_type).State = EntityState.Modified;
-                db.GetContext().SaveChanges();
+                _hotelkamerTypeRepository.Update(hotelkamerType);
+                _hotelkamerTypeRepository.Save();
                 return RedirectToAction("Index");
             }
-            return View(hotelkamer_type);
+            return View(hotelkamerType);
         }
 
         // GET: Hotelkamer_type/Delete/5
@@ -112,12 +105,12 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_type hotelkamer_type = db.GetContext().Hotelkamer_type.Find(id);
-            if (hotelkamer_type == null)
+            HotelkamerTypeModel hotelkamerType = _hotelkamerTypeRepository.Get(id);
+            if (hotelkamerType == null)
             {
                 return HttpNotFound();
             }
-            return View(hotelkamer_type);
+            return View(hotelkamerType);
         }
 
         // POST: Hotelkamer_type/Delete/5
@@ -125,9 +118,9 @@ namespace Prog6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Hotelkamer_type hotelkamer_type = db.GetContext().Hotelkamer_type.Find(id);
-            db.GetContext().Hotelkamer_type.Remove(hotelkamer_type);
-            db.GetContext().SaveChanges();
+            HotelkamerTypeModel hotelkamerType = _hotelkamerTypeRepository.Get(id);
+            _hotelkamerTypeRepository.Delete(hotelkamerType);
+            _hotelkamerTypeRepository.Save();
             return RedirectToAction("Index");
         }
 
