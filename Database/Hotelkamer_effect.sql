@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Hotelkamer_effect]
 (
-    [Naam] VARCHAR(MAX) NOT NULL, 
-	[Type] VARCHAR(MAX) NOT NULL , 
+    [Naam] VARCHAR(255) NOT NULL, 
+	[Type] VARCHAR(255) NOT NULL , 
 	[Eigenschap] VARCHAR(MAX) NOT NULL, 
     [Operator] VARCHAR(10) NOT NULL, 
     [Value] VARCHAR(MAX) NOT NULL, 

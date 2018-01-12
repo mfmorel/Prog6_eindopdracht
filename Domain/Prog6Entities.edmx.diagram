@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b3c8459673d741f1a684907e2dedaf05" Name="Diagram1">
+        <EntityTypeShape EntityType="Prog6Model.C__RefactorLog" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prog6Model.Hotelkamer" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prog6Model.Hotelkamer_effect" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prog6Model.Hotelkamer_type" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prog6Model.Tamagotchi" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="Prog6Model.FK_Hotelkamer_Hotelkamer_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="Prog6Model.FK_Hotelkamer_effect_Hotelkamer_type" ManuallyRouted="false" />
+        <AssociationConnector Association="Prog6Model.Boekingen" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
