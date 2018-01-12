@@ -9,11 +9,6 @@ namespace Prog6.Respositories
 {
     public class EntityHotelkamerEffectRepository : IHotelkamerEffectRepository
     {
-        public HotelkamerEffectModel Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public HotelkamerEffectModel Get(string name)
         {
             throw new NotImplementedException();
@@ -37,6 +32,16 @@ namespace Prog6.Respositories
         public void Delete(HotelkamerEffectModel tamagotchi)
         {
             throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

@@ -6,30 +6,23 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Prog6.Interfaces;
+using Prog6.Respositories.Interfaces;
+using Prog6.Models;
 
 namespace Prog6.Controllers
 {
-    [Export]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class HomeController : Controller
     {
-        private IContext db;
+        private ITamagotchiRepository _tamagotchiRepository;
 
-        public HomeController()
+        public HomeController(ITamagotchiRepository tamagotchiRepository)
         {
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
-        }
-
-        [ImportingConstructor]
-        public HomeController(IContext context)
-        {
-            db = context;
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
-        }
+            _tamagotchiRepository = tamagotchiRepository;
+        }        
 
         public ActionResult Index()
         {
-            List<Tamagotchi> tamagotchis = db.GetContext().Tamagotchis.ToList();
+            List<TamagotchiModel> tamagotchis = _tamagotchiRepository.GetAll();
             /*List<Tamagotchi> aliveTamagotchis = tamagotchis.Where(t => t.Levend == 1).ToList();
             List<Tamagotchi> deadTamagotchis = tamagotchis.Where(t => t.Levend == 0).ToList();
             db.Hotelkamers.ToList().ForEach((h) =>
