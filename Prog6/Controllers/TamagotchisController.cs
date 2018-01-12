@@ -50,6 +50,12 @@ namespace Prog6.Controllers
         {
             if (ModelState.IsValid)
             {
+                tamagotchi.Leeftijd = 0;
+                tamagotchi.Centjes = 100;
+                tamagotchi.Level = 0;
+                tamagotchi.Gezondheid = 100;
+                tamagotchi.Verveling = 0;
+                tamagotchi.Levend = 1;
                 db.Tamagotchis.Add(tamagotchi);
                 db.SaveChanges();
                 return RedirectToAction("Index");
