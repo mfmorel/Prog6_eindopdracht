@@ -7,13 +7,13 @@ using Prog6.Models;
 
 namespace Prog6.Respositories.Interfaces
 {
-    public interface IHotelkamerEffectRepository
+    public interface IHotelkamerEffectRepository : IDisposable
     {
-        HotelkamerEffectModel Get(int id);
         HotelkamerEffectModel Get(string name);
         List<HotelkamerEffectModel> GetAll();
         void Create(HotelkamerEffectModel hotelkamerEffect);
         void Update(HotelkamerEffectModel hotelkamerEffect);
         void Delete(HotelkamerEffectModel hotelkamerEffect);
+        void Save();
     }
 }

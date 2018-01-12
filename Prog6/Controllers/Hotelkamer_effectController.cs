@@ -9,32 +9,28 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Prog6.Interfaces;
+using Prog6.Models;
+using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Controllers
 {
-    [Export]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class Hotelkamer_effectController : Controller
     {
-        private IContext db;
+        private IHotelkamerEffectRepository _hotelkamerEffectRepository;
+        private IHotelkamerTypeRepository _hotelkamerTypeRepository;
 
-        public Hotelkamer_effectController()
+        public Hotelkamer_effectController(IHotelkamerEffectRepository hotelkamerEffectRepository, IHotelkamerTypeRepository hotelkamerTypeRepository)
         {
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
-        }
-
-        [ImportingConstructor]
-        public Hotelkamer_effectController(IContext context)
-        {
-            db = context;
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+            _hotelkamerEffectRepository = hotelkamerEffectRepository;
+            _hotelkamerTypeRepository = hotelkamerTypeRepository;
         }
 
         // GET: Hotelkamer_effect
         public ActionResult Index()
         {
-            var hotelkamer_effect = db.GetContext().Hotelkamer_effect.Include(h => h.Hotelkamer_type);
-            return View(hotelkamer_effect.ToList());
+            // var hotelkamer_effect = db.GetContext().Hotelkamer_effect.Include(h => h.Hotelkamer_type);
+            var hotelkamer_effect = _hotelkamerEffectRepository.GetAll();
+            return View(hotelkamer_effect);
         }
 
         // GET: Hotelkamer_effect/Details/5
@@ -44,7 +40,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_effect hotelkamer_effect = db.GetContext().Hotelkamer_effect.Find(id);
+            HotelkamerEffectModel hotelkamer_effect = _hotelkamerEffectRepository.Get(id);
             if (hotelkamer_effect == null)
             {
                 return HttpNotFound();
@@ -55,8 +51,7 @@ namespace Prog6.Controllers
         // GET: Hotelkamer_effect/Create
         public ActionResult Create()
         {
-            Console.Write(db.GetContext());
-            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type");
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type");
             return View();
         }
 
@@ -65,17 +60,17 @@ namespace Prog6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Naam,Type,Eigenschap,Operator,Value")] Hotelkamer_effect hotelkamer_effect)
+        public ActionResult Create(HotelkamerEffectModel hotelkamerEffect)
         {
             if (ModelState.IsValid)
             {
-                db.GetContext().Hotelkamer_effect.Add(hotelkamer_effect);
-                db.GetContext().SaveChanges();
+                _hotelkamerEffectRepository.Create(hotelkamerEffect);
+                _hotelkamerEffectRepository.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
-            return View(hotelkamer_effect);
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamerEffect.Type);
+            return View(hotelkamerEffect);
         }
 
         // GET: Hotelkamer_effect/Edit/5
@@ -85,12 +80,12 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_effect hotelkamer_effect = db.GetContext().Hotelkamer_effect.Find(id);
+            HotelkamerEffectModel hotelkamer_effect = _hotelkamerEffectRepository.Get(id);
             if (hotelkamer_effect == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer_effect.Type);
             return View(hotelkamer_effect);
         }
 
@@ -99,16 +94,16 @@ namespace Prog6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Naam,Type,Eigenschap,Operator,Value")] Hotelkamer_effect hotelkamer_effect)
+        public ActionResult Edit(HotelkamerEffectModel hotelkamerEffectModel)
         {
             if (ModelState.IsValid)
             {
-                db.GetContext().Entry(hotelkamer_effect).State = EntityState.Modified;
-                db.GetContext().SaveChanges();
+                _hotelkamerEffectRepository.Update(hotelkamerEffectModel);
+                _hotelkamerEffectRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
-            return View(hotelkamer_effect);
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamerEffectModel.Type);
+            return View(hotelkamerEffectModel);
         }
 
         // GET: Hotelkamer_effect/Delete/5
@@ -118,7 +113,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_effect hotelkamer_effect = db.GetContext().Hotelkamer_effect.Find(id);
+            HotelkamerEffectModel hotelkamer_effect = _hotelkamerEffectRepository.Get(id);
             if (hotelkamer_effect == null)
             {
                 return HttpNotFound();
@@ -131,9 +126,9 @@ namespace Prog6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Hotelkamer_effect hotelkamer_effect = db.GetContext().Hotelkamer_effect.Find(id);
-            db.GetContext().Hotelkamer_effect.Remove(hotelkamer_effect);
-            db.GetContext().SaveChanges();
+            HotelkamerEffectModel hotelkamer_effect = _hotelkamerEffectRepository.Get(id);
+            _hotelkamerEffectRepository.Delete(hotelkamer_effect);
+            _hotelkamerEffectRepository.Save();
             return RedirectToAction("Index");
         }
 
