@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prog6", "Prog6\Prog6.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prog6.Tests", "Prog6.Tests\Prog6.Tests.csproj", "{82270ACD-5D94-45FE-A137-9A5A269ED343}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{64B72188-F0BD-4ABD-AF08-75C65901270B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{82270ACD-5D94-45FE-A137-9A5A269ED343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82270ACD-5D94-45FE-A137-9A5A269ED343}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82270ACD-5D94-45FE-A137-9A5A269ED343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64B72188-F0BD-4ABD-AF08-75C65901270B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64B72188-F0BD-4ABD-AF08-75C65901270B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64B72188-F0BD-4ABD-AF08-75C65901270B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{64B72188-F0BD-4ABD-AF08-75C65901270B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64B72188-F0BD-4ABD-AF08-75C65901270B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64B72188-F0BD-4ABD-AF08-75C65901270B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

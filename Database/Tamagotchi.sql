@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Tamagotchi]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Naam] VARCHAR(10) NOT NULL, 
+    [Leeftijd] INT NOT NULL DEFAULT 0, 
+    [Centjes] INT NOT NULL DEFAULT 100, 
+    [Level] INT NOT NULL DEFAULT 0, 
+    [Gezondheid] INT NOT NULL DEFAULT 100, 
+    [Verveling] INT NOT NULL DEFAULT 0, 
+    [Levend] TINYINT NOT NULL DEFAULT 1
+)
