@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="523878c0-2ff9-4cbb-8227-32ed604959b4" ChangeDateTime="01/12/2018 14:29:15">
+    <Property Name="ElementName" Value="[dbo].[Hotelkamertype].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Hotelkamertype]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Type" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a0e4705b-950c-4461-817f-e5af7384192f" ChangeDateTime="01/12/2018 14:33:29">
+    <Property Name="ElementName" Value="[dbo].[Gereserveerde_kamer].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Gereserveerde_kamer]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Hotelkamer_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="da352f7d-4067-4085-82ec-47217a84e8ed" ChangeDateTime="01/12/2018 14:37:57">
+    <Property Name="ElementName" Value="[dbo].[Hotelkamer_type].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Hotelkamer_type]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Type" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c2d03df8-0eb0-4cae-82e1-bf8f0e1e50a5" ChangeDateTime="01/12/2018 14:40:56">
+    <Property Name="ElementName" Value="[dbo].[Hotelkamer_effect].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Hotelkamer_effect]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Type" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4c8695ba-81dd-43e1-95b1-a1e050cb1940" ChangeDateTime="01/12/2018 14:50:07">
+    <Property Name="ElementName" Value="[dbo].[Hotelkamer_effect].[Naam]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Hotelkamer_effect]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Omschrijving" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="18533347-3ac1-48ad-a04e-0dc2a04ec979" ChangeDateTime="01/12/2018 14:50:35">
+    <Property Name="ElementName" Value="[dbo].[Hotelkamer_effect].[Omschrijving]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Hotelkamer_effect]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Naam" />
+  </Operation>
+</Operations>
