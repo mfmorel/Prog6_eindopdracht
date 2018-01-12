@@ -19,6 +19,11 @@ namespace Prog6.Respositories
             throw new NotImplementedException();
         }
 
+        public HotelkamerModel GetByGroote(int groote)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<HotelkamerModel> GetAll()
         {
             throw new NotImplementedException();

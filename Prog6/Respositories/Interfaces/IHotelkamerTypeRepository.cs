@@ -12,8 +12,8 @@ namespace Prog6.Respositories.Interfaces
         HotelkamerTypeModel Get(int id);
         HotelkamerTypeModel Get(string name);
         List<HotelkamerTypeModel> GetAll();
-        void Create(HotelkamerTypeModel tamagotchi);
-        void Update(HotelkamerTypeModel tamagotchi);
-        void Delete(HotelkamerTypeModel tamagotchi);
+        void Create(HotelkamerTypeModel hotelkamerTypeModel);
+        void Update(HotelkamerTypeModel hotelkamerTypeModel);
+        void Delete(HotelkamerTypeModel hotelkamerTypeModel);
     }
 }

@@ -9,12 +9,17 @@ namespace Prog6.Controllers
 {
     public class HomeController : Controller
     {
-        private Prog6Entities db = new Prog6Entities();
+        private Prog6Entities _db;
+
+        public HomeController(Prog6Entities db)
+        {
+            _db = db;
+        }
 
         public ActionResult Index()
         {
-            List<Tamagotchi> tamagotchis = db.Tamagotchis.ToList();
-            List<Tamagotchi> aliveTamagotchis = tamagotchis.Where(t => t.Levend == 1).ToList();
+            List<Tamagotchi> tamagotchis = _db.Tamagotchis.ToList();
+            /*List<Tamagotchi> aliveTamagotchis = tamagotchis.Where(t => t.Levend == 1).ToList();
             List<Tamagotchi> deadTamagotchis = tamagotchis.Where(t => t.Levend == 0).ToList();
             db.Hotelkamers.ToList().ForEach((h) =>
             {
@@ -26,10 +31,10 @@ namespace Prog6.Controllers
                             tamagotchis.Remove(objTamagotchi);
                     }
                 }
-            });
+            });*/
 
-
-            return View();
+            Console.WriteLine(tamagotchis[0].Naam);
+            return View(tamagotchis);
         }
 
         public ActionResult About()

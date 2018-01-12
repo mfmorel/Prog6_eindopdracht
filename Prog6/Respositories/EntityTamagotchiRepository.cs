@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Domain;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
 
@@ -9,19 +10,26 @@ namespace Prog6.Respositories
 {
     public class EntityTamagotchiRepository : ITamagotchiRepository
     {
+        private Prog6Entities _context;
+
+        public EntityTamagotchiRepository(Prog6Entities context)
+        {
+            _context = context;
+        }
+
         public TamagotchiModel Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Tamagotchis.Where(t => t.Id == id).Select(t => new TamagotchiModel(t)).FirstOrDefault();
         }
 
         public TamagotchiModel Get(string name)
         {
-            throw new NotImplementedException();
+            return _context.Tamagotchis.Where(t => t.Naam.Equals(name)).Select(t => new TamagotchiModel(t)).FirstOrDefault();
         }
 
         public List<TamagotchiModel> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Tamagotchis.Select(t => new TamagotchiModel(t)).ToList();
         }
 
         public void Create(TamagotchiModel tamagotchi)
