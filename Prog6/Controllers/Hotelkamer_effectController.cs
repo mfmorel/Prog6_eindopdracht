@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -7,17 +8,32 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using Prog6.Interfaces;
 
 namespace Prog6.Controllers
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class Hotelkamer_effectController : Controller
     {
-        private Prog6Entities db = new Prog6Entities();
+        private IContext db;
+
+        public Hotelkamer_effectController()
+        {
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+        }
+
+        [ImportingConstructor]
+        public Hotelkamer_effectController(IContext context)
+        {
+            db = context;
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+        }
 
         // GET: Hotelkamer_effect
         public ActionResult Index()
         {
-            var hotelkamer_effect = db.Hotelkamer_effect.Include(h => h.Hotelkamer_type);
+            var hotelkamer_effect = db.GetContext().Hotelkamer_effect.Include(h => h.Hotelkamer_type);
             return View(hotelkamer_effect.ToList());
         }
 
@@ -28,7 +44,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_effect hotelkamer_effect = db.Hotelkamer_effect.Find(id);
+            Hotelkamer_effect hotelkamer_effect = db.GetContext().Hotelkamer_effect.Find(id);
             if (hotelkamer_effect == null)
             {
                 return HttpNotFound();
@@ -39,7 +55,8 @@ namespace Prog6.Controllers
         // GET: Hotelkamer_effect/Create
         public ActionResult Create()
         {
-            ViewBag.Type = new SelectList(db.Hotelkamer_type, "Type", "Type");
+            Console.Write(db.GetContext());
+            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type");
             return View();
         }
 
@@ -52,12 +69,12 @@ namespace Prog6.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Hotelkamer_effect.Add(hotelkamer_effect);
-                db.SaveChanges();
+                db.GetContext().Hotelkamer_effect.Add(hotelkamer_effect);
+                db.GetContext().SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(db.Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
+            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
             return View(hotelkamer_effect);
         }
 
@@ -68,12 +85,12 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_effect hotelkamer_effect = db.Hotelkamer_effect.Find(id);
+            Hotelkamer_effect hotelkamer_effect = db.GetContext().Hotelkamer_effect.Find(id);
             if (hotelkamer_effect == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Type = new SelectList(db.Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
+            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
             return View(hotelkamer_effect);
         }
 
@@ -86,11 +103,11 @@ namespace Prog6.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(hotelkamer_effect).State = EntityState.Modified;
-                db.SaveChanges();
+                db.GetContext().Entry(hotelkamer_effect).State = EntityState.Modified;
+                db.GetContext().SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Type = new SelectList(db.Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
+            ViewBag.Type = new SelectList(db.GetContext().Hotelkamer_type, "Type", "Type", hotelkamer_effect.Type);
             return View(hotelkamer_effect);
         }
 
@@ -101,7 +118,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_effect hotelkamer_effect = db.Hotelkamer_effect.Find(id);
+            Hotelkamer_effect hotelkamer_effect = db.GetContext().Hotelkamer_effect.Find(id);
             if (hotelkamer_effect == null)
             {
                 return HttpNotFound();
@@ -114,9 +131,9 @@ namespace Prog6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Hotelkamer_effect hotelkamer_effect = db.Hotelkamer_effect.Find(id);
-            db.Hotelkamer_effect.Remove(hotelkamer_effect);
-            db.SaveChanges();
+            Hotelkamer_effect hotelkamer_effect = db.GetContext().Hotelkamer_effect.Find(id);
+            db.GetContext().Hotelkamer_effect.Remove(hotelkamer_effect);
+            db.GetContext().SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +141,7 @@ namespace Prog6.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.GetContext().Dispose();
             }
             base.Dispose(disposing);
         }

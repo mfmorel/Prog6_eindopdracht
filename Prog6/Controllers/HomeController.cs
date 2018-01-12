@@ -1,24 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using Prog6.Interfaces;
 
 namespace Prog6.Controllers
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class HomeController : Controller
     {
-        private Prog6Entities _db;
+        private IContext db;
 
-        public HomeController(Prog6Entities db)
+        public HomeController()
         {
-            _db = db;
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+        }
+
+        [ImportingConstructor]
+        public HomeController(IContext context)
+        {
+            db = context;
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
         }
 
         public ActionResult Index()
         {
-            List<Tamagotchi> tamagotchis = _db.Tamagotchis.ToList();
+            List<Tamagotchi> tamagotchis = db.GetContext().Tamagotchis.ToList();
             /*List<Tamagotchi> aliveTamagotchis = tamagotchis.Where(t => t.Levend == 1).ToList();
             List<Tamagotchi> deadTamagotchis = tamagotchis.Where(t => t.Levend == 0).ToList();
             db.Hotelkamers.ToList().ForEach((h) =>
@@ -32,9 +43,8 @@ namespace Prog6.Controllers
                     }
                 }
             });*/
-
-            Console.WriteLine(tamagotchis[0].Naam);
-            return View(tamagotchis);
+            Console.Write(tamagotchis);
+            return View();
         }
 
         public ActionResult About()

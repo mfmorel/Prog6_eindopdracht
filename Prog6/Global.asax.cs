@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -17,13 +19,11 @@ namespace Prog6
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            RegisterCustomControllerFactory();
-        }
 
-        private void RegisterCustomControllerFactory()
-        {
-            IControllerFactory factory = new CustomControllerFactory();
-            ControllerBuilder.Current.SetControllerFactory(factory);
+            var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
+            var composition = new CompositionContainer(catalog);
+            IControllerFactory mefControllerFactory = new MefControllerFactory(composition);
+            ControllerBuilder.Current.SetControllerFactory(mefControllerFactory);
         }
     }
 }

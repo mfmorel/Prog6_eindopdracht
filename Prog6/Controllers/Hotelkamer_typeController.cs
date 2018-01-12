@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -7,17 +8,32 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using Prog6.Interfaces;
 
 namespace Prog6.Controllers
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class Hotelkamer_typeController : Controller
     {
-        private Prog6Entities db = new Prog6Entities();
+        private IContext db;
+
+        public Hotelkamer_typeController()
+        {
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+        }
+
+        [ImportingConstructor]
+        public Hotelkamer_typeController(IContext context)
+        {
+            db = context;
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+        }
 
         // GET: Hotelkamer_type
         public ActionResult Index()
         {
-            return View(db.Hotelkamer_type.ToList());
+            return View(db.GetContext().Hotelkamer_type.ToList());
         }
 
         // GET: Hotelkamer_type/Details/5
@@ -27,7 +43,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_type hotelkamer_type = db.Hotelkamer_type.Find(id);
+            Hotelkamer_type hotelkamer_type = db.GetContext().Hotelkamer_type.Find(id);
             if (hotelkamer_type == null)
             {
                 return HttpNotFound();
@@ -50,8 +66,8 @@ namespace Prog6.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Hotelkamer_type.Add(hotelkamer_type);
-                db.SaveChanges();
+                db.GetContext().Hotelkamer_type.Add(hotelkamer_type);
+                db.GetContext().SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +81,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_type hotelkamer_type = db.Hotelkamer_type.Find(id);
+            Hotelkamer_type hotelkamer_type = db.GetContext().Hotelkamer_type.Find(id);
             if (hotelkamer_type == null)
             {
                 return HttpNotFound();
@@ -82,8 +98,8 @@ namespace Prog6.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(hotelkamer_type).State = EntityState.Modified;
-                db.SaveChanges();
+                db.GetContext().Entry(hotelkamer_type).State = EntityState.Modified;
+                db.GetContext().SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(hotelkamer_type);
@@ -96,7 +112,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotelkamer_type hotelkamer_type = db.Hotelkamer_type.Find(id);
+            Hotelkamer_type hotelkamer_type = db.GetContext().Hotelkamer_type.Find(id);
             if (hotelkamer_type == null)
             {
                 return HttpNotFound();
@@ -109,9 +125,9 @@ namespace Prog6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Hotelkamer_type hotelkamer_type = db.Hotelkamer_type.Find(id);
-            db.Hotelkamer_type.Remove(hotelkamer_type);
-            db.SaveChanges();
+            Hotelkamer_type hotelkamer_type = db.GetContext().Hotelkamer_type.Find(id);
+            db.GetContext().Hotelkamer_type.Remove(hotelkamer_type);
+            db.GetContext().SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +135,7 @@ namespace Prog6.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.GetContext().Dispose();
             }
             base.Dispose(disposing);
         }

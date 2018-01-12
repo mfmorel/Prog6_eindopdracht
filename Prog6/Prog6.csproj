@@ -82,6 +82,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
@@ -200,18 +201,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CustomControllerFactory.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelkamersController.cs" />
     <Compile Include="Controllers\Hotelkamer_effectController.cs" />
     <Compile Include="Controllers\Hotelkamer_typeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MefControllerFactory.cs" />
     <Compile Include="Controllers\TamagotchisController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BoekingModel.cs" />
+    <Compile Include="Models\Context.cs" />
     <Compile Include="Models\HotelkamerEffectModel.cs" />
     <Compile Include="Models\HotelkamerModel.cs" />
     <Compile Include="Models\HotelkamerTypeModel.cs" />

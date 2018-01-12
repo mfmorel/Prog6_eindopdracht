@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -7,17 +8,32 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using Prog6.Interfaces;
 
 namespace Prog6.Controllers
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class TamagotchisController : Controller
     {
-        private Prog6Entities db = new Prog6Entities();
+        private IContext db;
+
+        public TamagotchisController()
+        {
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+        }
+
+        [ImportingConstructor]
+        public TamagotchisController(IContext context)
+        {
+            db = context;
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+        }
 
         // GET: Tamagotchis
         public ActionResult Index()
         {
-            return View(db.Tamagotchis.ToList());
+            return View(db.GetContext().Tamagotchis.ToList());
         }
 
         // GET: Tamagotchis/Details/5
@@ -27,7 +43,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tamagotchi tamagotchi = db.Tamagotchis.Find(id);
+            Tamagotchi tamagotchi = db.GetContext().Tamagotchis.Find(id);
             if (tamagotchi == null)
             {
                 return HttpNotFound();
@@ -56,8 +72,8 @@ namespace Prog6.Controllers
                 tamagotchi.Gezondheid = 100;
                 tamagotchi.Verveling = 0;
                 tamagotchi.Levend = 1;
-                db.Tamagotchis.Add(tamagotchi);
-                db.SaveChanges();
+                db.GetContext().Tamagotchis.Add(tamagotchi);
+                db.GetContext().SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -71,7 +87,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tamagotchi tamagotchi = db.Tamagotchis.Find(id);
+            Tamagotchi tamagotchi = db.GetContext().Tamagotchis.Find(id);
             if (tamagotchi == null)
             {
                 return HttpNotFound();
@@ -88,8 +104,8 @@ namespace Prog6.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tamagotchi).State = EntityState.Modified;
-                db.SaveChanges();
+                db.GetContext().Entry(tamagotchi).State = EntityState.Modified;
+                db.GetContext().SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(tamagotchi);
@@ -102,7 +118,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tamagotchi tamagotchi = db.Tamagotchis.Find(id);
+            Tamagotchi tamagotchi = db.GetContext().Tamagotchis.Find(id);
             if (tamagotchi == null)
             {
                 return HttpNotFound();
@@ -115,9 +131,9 @@ namespace Prog6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Tamagotchi tamagotchi = db.Tamagotchis.Find(id);
-            db.Tamagotchis.Remove(tamagotchi);
-            db.SaveChanges();
+            Tamagotchi tamagotchi = db.GetContext().Tamagotchis.Find(id);
+            db.GetContext().Tamagotchis.Remove(tamagotchi);
+            db.GetContext().SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +141,7 @@ namespace Prog6.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.GetContext().Dispose();
             }
             base.Dispose(disposing);
         }
