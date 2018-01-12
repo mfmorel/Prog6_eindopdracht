@@ -7,7 +7,7 @@ using Prog6.Models;
 
 namespace Prog6.Respositories.Interfaces
 {
-    public interface ITamagotchiRepository
+    public interface ITamagotchiRepository : IDisposable
     {
         TamagotchiModel Get(int id);
         TamagotchiModel Get(string name);
@@ -15,5 +15,7 @@ namespace Prog6.Respositories.Interfaces
         void Create(TamagotchiModel tamagotchi);
         void Update(TamagotchiModel tamagotchi);
         void Delete(TamagotchiModel tamagotchi);
+        void Save();
+        Domain.Tamagotchi Test();
     }
 }

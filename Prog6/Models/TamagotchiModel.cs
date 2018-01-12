@@ -9,7 +9,7 @@ namespace Prog6.Models
 {
     public class TamagotchiModel
     {
-        private Tamagotchi _tamagotchi;
+        public Tamagotchi _tamagotchi { get; set; }
 
         public int Id
         {
@@ -18,6 +18,8 @@ namespace Prog6.Models
             set { _tamagotchi.Id = value; }
         }
 
+        [Required]
+        [MaxLength(10)]
         public string Naam
         {
             get { return _tamagotchi.Naam; }
@@ -74,6 +76,11 @@ namespace Prog6.Models
         public TamagotchiModel()
         {
             _tamagotchi = new Tamagotchi();
+        }
+
+        public Tamagotchi ToModel()
+        {
+            return _tamagotchi;
         }
     }
 }

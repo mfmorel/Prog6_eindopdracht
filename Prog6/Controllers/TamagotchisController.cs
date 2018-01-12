@@ -8,32 +8,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using Ninject;
 using Prog6.Interfaces;
+using Prog6.Models;
+using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Controllers
 {
-    [Export]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class TamagotchisController : Controller
     {
-        private IContext db;
+        private ITamagotchiRepository _tamagotchiRepository;
 
-        public TamagotchisController()
+        [Inject]
+        public TamagotchisController(ITamagotchiRepository tamagotchiRepository)
         {
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
-        }
-
-        [ImportingConstructor]
-        public TamagotchisController(IContext context)
-        {
-            db = context;
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+            _tamagotchiRepository = tamagotchiRepository;
         }
 
         // GET: Tamagotchis
         public ActionResult Index()
         {
-            return View(db.GetContext().Tamagotchis.ToList());
+            _tamagotchiRepository.Test();
+            return View(_tamagotchiRepository.GetAll());
         }
 
         // GET: Tamagotchis/Details/5
@@ -43,7 +39,8 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tamagotchi tamagotchi = db.GetContext().Tamagotchis.Find(id);
+            TamagotchiModel tamagotchi = _tamagotchiRepository.Get(id.Value);
+
             if (tamagotchi == null)
             {
                 return HttpNotFound();
@@ -62,7 +59,8 @@ namespace Prog6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Naam,Leeftijd,Centjes,Level,Gezondheid,Verveling,Levend")] Tamagotchi tamagotchi)
+        // [Bind(Include = "Id,Naam,Leeftijd,Centjes,Level,Gezondheid,Verveling,Levend")] Tamagotchi tamagotchi
+        public ActionResult Create(TamagotchiModel tamagotchi)
         {
             if (ModelState.IsValid)
             {
@@ -72,8 +70,8 @@ namespace Prog6.Controllers
                 tamagotchi.Gezondheid = 100;
                 tamagotchi.Verveling = 0;
                 tamagotchi.Levend = 1;
-                db.GetContext().Tamagotchis.Add(tamagotchi);
-                db.GetContext().SaveChanges();
+                _tamagotchiRepository.Create(tamagotchi);
+                _tamagotchiRepository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -87,7 +85,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tamagotchi tamagotchi = db.GetContext().Tamagotchis.Find(id);
+            TamagotchiModel tamagotchi = _tamagotchiRepository.Get(id.Value);
             if (tamagotchi == null)
             {
                 return HttpNotFound();
@@ -100,12 +98,15 @@ namespace Prog6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Naam,Leeftijd,Centjes,Level,Gezondheid,Verveling,Levend")] Tamagotchi tamagotchi)
+        // [Bind(Include = "Id,Naam,Leeftijd,Centjes,Level,Gezondheid,Verveling,Levend")] Tamagotchi tamagotchi
+        public ActionResult Edit(TamagotchiModel tamagotchi)
         {
             if (ModelState.IsValid)
             {
-                db.GetContext().Entry(tamagotchi).State = EntityState.Modified;
-                db.GetContext().SaveChanges();
+                //Tamagotchi t1 = db.GetContext().Tamagotchis.Where(t => t.Id == tamagotchi.Id).FirstOrDefault();
+                //t1.Naam = tamagotchi.Naam;
+                _tamagotchiRepository.Update(tamagotchi);
+                _tamagotchiRepository.Save();
                 return RedirectToAction("Index");
             }
             return View(tamagotchi);
@@ -118,7 +119,7 @@ namespace Prog6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tamagotchi tamagotchi = db.GetContext().Tamagotchis.Find(id);
+            TamagotchiModel tamagotchi = _tamagotchiRepository.Get(id.Value);
             if (tamagotchi == null)
             {
                 return HttpNotFound();
@@ -131,19 +132,19 @@ namespace Prog6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Tamagotchi tamagotchi = db.GetContext().Tamagotchis.Find(id);
-            db.GetContext().Tamagotchis.Remove(tamagotchi);
-            db.GetContext().SaveChanges();
+            TamagotchiModel tamagotchi = _tamagotchiRepository.Get(id);
+            _tamagotchiRepository.Delete(tamagotchi);
+            _tamagotchiRepository.Save();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            /*if (disposing)
             {
                 //db.GetContext().Dispose();
             }
-            base.Dispose(disposing);
+            base.Dispose(disposing);*/
         }
     }
 }

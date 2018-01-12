@@ -9,27 +9,18 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Prog6.Interfaces;
+using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Controllers
 {
-    [Export]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class HotelkamersController : Controller
     {
-        private IContext db;
+        private IHotelkamerRepository _hotelkamerRepository;
 
-        public HotelkamersController()
+        public HotelkamersController(IHotelkamerRepository hotelkamerRepository)
         {
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+            _hotelkamerRepository = hotelkamerRepository;
         }
-
-        [ImportingConstructor]
-        public HotelkamersController(IContext context)
-        {
-            db = context;
-            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
-        }
-
         // GET: Hotelkamers
         public ActionResult Index()
         {
