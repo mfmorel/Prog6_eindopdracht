@@ -223,6 +223,7 @@
     <Compile Include="Controllers\HotelkamersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MefControllerFactory.cs" />
+    <Compile Include="Controllers\NachtController.cs" />
     <Compile Include="Controllers\TamagotchisController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -328,6 +329,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\CustomControllerFactory\" />
+    <Folder Include="Views\Nacht\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

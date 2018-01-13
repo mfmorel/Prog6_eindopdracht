@@ -10,6 +10,15 @@
 </div>
 
 <div class="row">
+    @if (ViewBag.NachtComplete != null)
+    {
+        <div class="alert alert-success">
+            @ViewBag.NachtComplete
+        </div>
+    }
+    
+    @Html.ActionLink("Nacht starten", "Index", "Nacht", new {@class="btn btn-default"})
+
     <div class="col-md-6">
         <h2>Alive Tamagotchi's</h2>
         <table class="table">
@@ -20,7 +29,8 @@
                 <th>Levend</th>
             </tr>
             <!-- Overview of tamagotchi's that are alive -->
-            @foreach (var item in Model.AliveTamagotchis) {
+            @foreach (var item in Model.AliveTamagotchis)
+            {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Naam)
@@ -31,7 +41,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Gezondheid)
                     </td>
-                
+
                     <td>
                         @Html.DisplayFor(modelItem => item.Levend)
                     </td>

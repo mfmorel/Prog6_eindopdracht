@@ -49,7 +49,16 @@ namespace Prog6.Respositories
             _context.Entry(hk).State = EntityState.Modified;
         }
 
-        public void Update(BoekingModel boeking)
+        public BoekingModel GetByRoom(HotelkamerModel hotelkamer)
+        {
+            BoekingModel boekingModel = new BoekingModel();
+            boekingModel.Hotelkamer = hotelkamer;
+            boekingModel.Tamagotchis = boekingModel.Hotelkamer.Tamagotchis.Select(t => new TamagotchiModel() {_tamagotchi = t}).ToList();
+            return boekingModel;
+
+        }
+
+        public void Create(BoekingModel tamagotchi)
         {
             throw new NotImplementedException();
         }
