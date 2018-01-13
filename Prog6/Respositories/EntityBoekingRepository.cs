@@ -37,6 +37,15 @@ namespace Prog6.Respositories
                 .Select(h => new HotelkamerModel() {_Hotelkamer = h}).ToList();
         }
 
+        public BoekingModel GetByRoom(HotelkamerModel hotelkamer)
+        {
+            BoekingModel boekingModel = new BoekingModel();
+            boekingModel.Hotelkamer = hotelkamer;
+            boekingModel.Tamagotchis = boekingModel.Hotelkamer.Tamagotchis.Select(t => new TamagotchiModel() {_tamagotchi = t}).ToList();
+            return boekingModel;
+
+        }
+
         public void Create(BoekingModel tamagotchi)
         {
             throw new NotImplementedException();
