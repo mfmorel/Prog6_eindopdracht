@@ -35,6 +35,8 @@ namespace Prog6.Models
             set { _Hotelkamer.Type = value; }
         }
 
+        public int Prijs { get; set; }
+
 //        public Hotelkamer_type Hotelkamer_type
 //        {
 //            get { return _Hotelkamer.Hotelkamer_type; }
