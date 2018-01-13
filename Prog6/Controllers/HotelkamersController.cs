@@ -49,7 +49,7 @@ namespace Prog6.Controllers
         // GET: Hotelkamers/Create
         public ActionResult Create()
         {
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type");
+            ViewBag.Type = new SelectList(Kamer.GetKamers());
             int[] Groote = new[] {2, 3, 5 };
             ViewBag.Groote = new SelectList(Groote);
             ViewBag.Type = new SelectList(Kamer.GetKamers());
@@ -71,7 +71,7 @@ namespace Prog6.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Hotelkamer_type);
+            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Type);
 
             return View(hotelkamer);
         }
@@ -107,7 +107,7 @@ namespace Prog6.Controllers
                 _hotelkamerRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Hotelkamer_type);
+            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Type);
             return View(hotelkamer);
         }
 
