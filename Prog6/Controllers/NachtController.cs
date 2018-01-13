@@ -23,11 +23,16 @@ namespace Prog6.Controllers
         // GET: Nacht
         public ActionResult Index()
         {
-            List<BoekingModel> boekingen = _boekingRepository.GetAll();
+            // List<BoekingModel> boekingen = _boekingRepository.GetAll();
             _hotelkamerRepository.GetAll().ForEach(k =>
             {
                 IKamer kamer = Kamer.GetKamer(k.Type);
-                kamer.Nacht(_boekingRepository.GetByRoom(k).Tamagotchis);
+                kamer.Nacht(k.Tamagotchis.Select(t => new TamagotchiModel() {_tamagotchi = t}).ToList());
+                _hotelkamerRepository.Update(k);
+                _hotelkamerRepository.Save();
+                k.Tamagotchis.Clear();
+                _hotelkamerRepository.Update(k);
+                _hotelkamerRepository.Save();
             });
 
             ViewBag.NachtComplete = "Er is een nieuwe dag aangebroken!";

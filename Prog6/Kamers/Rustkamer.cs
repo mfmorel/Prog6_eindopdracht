@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using Prog6.Models;
+using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Kamers
 {
@@ -23,8 +25,10 @@ namespace Prog6.Kamers
         {
             tamagotchi.ForEach((t) =>
             {
+                Debug.WriteLine("Checking balance for " + t.Naam);
                 if (t.HasEnoughCentjes(Price))
                 {
+                    Debug.WriteLine("Adjusting stats for " + t.Naam);
                     t.Gezondheid += 20;
                     t.Verveling += 10;
                     t.Centjes -= Price;

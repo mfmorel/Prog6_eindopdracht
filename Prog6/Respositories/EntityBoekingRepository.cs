@@ -49,6 +49,14 @@ namespace Prog6.Respositories
             _context.Entry(hk).State = EntityState.Modified;
         }
 
+        public void Update(BoekingModel boekingModel)
+        {
+            boekingModel.Tamagotchis.ForEach(t =>
+            {
+                _context.Entry(t.ToModel()).State = EntityState.Modified;
+            });
+        }
+
         public BoekingModel GetByRoom(HotelkamerModel hotelkamer)
         {
             BoekingModel boekingModel = new BoekingModel();
@@ -56,11 +64,6 @@ namespace Prog6.Respositories
             boekingModel.Tamagotchis = boekingModel.Hotelkamer.Tamagotchis.Select(t => new TamagotchiModel() {_tamagotchi = t}).ToList();
             return boekingModel;
 
-        }
-
-        public void Create(BoekingModel tamagotchi)
-        {
-            throw new NotImplementedException();
         }
 
         public void Delete(BoekingModel boeking)

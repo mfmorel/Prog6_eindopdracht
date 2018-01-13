@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Prog6.Models;
+using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Kamers
 {
