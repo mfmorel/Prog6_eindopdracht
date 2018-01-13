@@ -41,7 +41,7 @@ namespace Prog6.Respositories
 
         public List<TamagotchiModel> GetAllAlive()
         {
-            return _context.Tamagotchis.Where(t => t.Level.Equals(1)).Select(t => new TamagotchiModel() { _tamagotchi = t, IsSelected = false }).ToList();
+            return _context.Tamagotchis.Where(t => t.Levend.Equals(1)).Select(t => new TamagotchiModel() { _tamagotchi = t, IsSelected = false }).ToList();
         }
 
         public void Create(TamagotchiModel tamagotchi)

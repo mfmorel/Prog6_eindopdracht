@@ -1,7 +1,32 @@
-﻿
+﻿@model Prog6.Models.BoekingModel
 @{
     ViewBag.Title = "Book";
 }
 
-<h2>Book</h2>
 
+@using (Html.BeginForm("Confirm", "Boeking", FormMethod.Post)) {
+<p>
+    <h4>Hotelkamer:</h4>
+    Kamersoort: @Html.DisplayFor(model => model.Hotelkamer.Type) <br />
+    Groote: @Html.DisplayFor(model => model.Hotelkamer.Groote)
+    
+    @Html.HiddenFor(model => model.Hotelkamer.Id)
+</p>
+
+   
+     <table>
+         @for (int idx = 0; idx < Model.Tamagotchis.Count; idx++) {
+             <tr>
+                 <td>
+                     @Html.HiddenFor(x=>Model.Tamagotchis[idx].Id)
+                     @Html.DisplayFor(x => Model.Tamagotchis[idx].Naam)
+                     @Html.HiddenFor(x => Model.Tamagotchis[idx].Naam)
+                     @Html.DisplayFor(x => Model.Tamagotchis[idx].Centjes)
+                 </td>
+             </tr>
+         }
+        
+
+     </table>
+     <button type="submit" id="btnSave">Bevestig</button>
+ }
