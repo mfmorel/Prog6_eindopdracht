@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Prog6.Interfaces;
+using Prog6.Kamers;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
 
@@ -48,7 +49,7 @@ namespace Prog6.Controllers
         // GET: Hotelkamers/Create
         public ActionResult Create()
         {
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type");
+            ViewBag.Type = new SelectList(Kamer.GetKamers());
             return View();
         }
 
@@ -67,7 +68,7 @@ namespace Prog6.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Hotelkamer_type);
+            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Hotelkamer_type);
 
             return View(hotelkamer);
         }
