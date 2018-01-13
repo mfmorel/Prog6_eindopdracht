@@ -27,8 +27,6 @@ namespace Domain
     
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Hotelkamer> Hotelkamers { get; set; }
-        public virtual DbSet<Hotelkamer_effect> Hotelkamer_effect { get; set; }
-        public virtual DbSet<Hotelkamer_type> Hotelkamer_type { get; set; }
         public virtual DbSet<Tamagotchi> Tamagotchis { get; set; }
     }
 }
