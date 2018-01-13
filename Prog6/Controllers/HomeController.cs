@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,30 +15,36 @@ namespace Prog6.Controllers
     public class HomeController : Controller
     {
         private ITamagotchiRepository _tamagotchiRepository;
+        private IHotelkamerRepository _hotelkamerRepository;
 
-        public HomeController(ITamagotchiRepository tamagotchiRepository)
+        public HomeController(ITamagotchiRepository tamagotchiRepository, IHotelkamerRepository hotelkamerRepository)
         {
             _tamagotchiRepository = tamagotchiRepository;
+            _hotelkamerRepository = hotelkamerRepository;
         }        
 
         public ActionResult Index()
         {
-            List<TamagotchiModel> tamagotchis = _tamagotchiRepository.GetAll();
-            /*List<Tamagotchi> aliveTamagotchis = tamagotchis.Where(t => t.Levend == 1).ToList();
-            List<Tamagotchi> deadTamagotchis = tamagotchis.Where(t => t.Levend == 0).ToList();
-            db.Hotelkamers.ToList().ForEach((h) =>
+            List<TamagotchiModel> AllTamagotchis = _tamagotchiRepository.GetAll();
+            List<TamagotchiModel> AliveTamagotchis = AllTamagotchis.Where(t => t.Levend == 1).ToList();
+            List<TamagotchiModel> DeadTamagotchis = AllTamagotchis.Where(t => t.Levend == 0).ToList();
+            List<TamagotchiModel> RoomlessTamagotchis = new List<TamagotchiModel>(AllTamagotchis);
+            _hotelkamerRepository.GetAll().ForEach((h) =>
             {
-                if (h.Tamagotchis.Count > 0)
+                Debug.WriteLine(h.Id + " " + h.Tamagotchis.Count + " / " + RoomlessTamagotchis.Count);
+                foreach (var objTamagotchi in h.Tamagotchis)
                 {
-                    foreach (var objTamagotchi in h.Tamagotchis)
-                    {
-                        if (tamagotchis.Contains(objTamagotchi))
-                            tamagotchis.Remove(objTamagotchi);
-                    }
+                    if (RoomlessTamagotchis.Contains(new TamagotchiModel(objTamagotchi)))
+                        RoomlessTamagotchis.Remove(new TamagotchiModel(objTamagotchi));
                 }
-            });*/
-            Console.Write(tamagotchis);
-            return View();
+            });
+            return View(new HomeIndexModel()
+            {
+                AllTamagotchis = AllTamagotchis,
+                AliveTamagotchis = AliveTamagotchis,
+                DeadTamagotchis =  DeadTamagotchis,
+                RoomlessTamagotchis = RoomlessTamagotchis
+            });
         }
 
         public ActionResult About()

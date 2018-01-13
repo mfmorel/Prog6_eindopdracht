@@ -17,10 +17,12 @@ namespace Prog6.Controllers
     public class HotelkamersController : Controller
     {
         private IHotelkamerRepository _hotelkamerRepository;
+        private IHotelkamerTypeRepository _hotelkamerTypeRepository;
 
-        public HotelkamersController(IHotelkamerRepository hotelkamerRepository)
+        public HotelkamersController(IHotelkamerRepository hotelkamerRepository, IHotelkamerTypeRepository hotelkamerTypeRepository)
         {
             _hotelkamerRepository = hotelkamerRepository;
+            _hotelkamerTypeRepository = hotelkamerTypeRepository;
         }
         // GET: Hotelkamers
         public ActionResult Index()
@@ -46,6 +48,7 @@ namespace Prog6.Controllers
         // GET: Hotelkamers/Create
         public ActionResult Create()
         {
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type");
             return View();
         }
 
@@ -60,8 +63,11 @@ namespace Prog6.Controllers
             if (ModelState.IsValid)
             {
                 _hotelkamerRepository.Create(hotelkamer);
+                _hotelkamerRepository.Save();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Hotelkamer_type);
 
             return View(hotelkamer);
         }
@@ -78,6 +84,7 @@ namespace Prog6.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Hotelkamer_type);
             return View(hotelkamer);
         }
 
@@ -95,6 +102,7 @@ namespace Prog6.Controllers
                 _hotelkamerRepository.Save();
                 return RedirectToAction("Index");
             }
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Hotelkamer_type);
             return View(hotelkamer);
         }
 

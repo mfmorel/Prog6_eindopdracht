@@ -14,12 +14,12 @@ using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Controllers
 {
-    public class Hotelkamer_effectController : Controller
+    public class HotelkamereffectController : Controller
     {
         private IHotelkamerEffectRepository _hotelkamerEffectRepository;
         private IHotelkamerTypeRepository _hotelkamerTypeRepository;
 
-        public Hotelkamer_effectController(IHotelkamerEffectRepository hotelkamerEffectRepository, IHotelkamerTypeRepository hotelkamerTypeRepository)
+        public HotelkamereffectController(IHotelkamerEffectRepository hotelkamerEffectRepository, IHotelkamerTypeRepository hotelkamerTypeRepository)
         {
             _hotelkamerEffectRepository = hotelkamerEffectRepository;
             _hotelkamerTypeRepository = hotelkamerTypeRepository;
@@ -52,6 +52,9 @@ namespace Prog6.Controllers
         public ActionResult Create()
         {
             ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type");
+            string[] operators = new[] {"+", "-"};
+            ViewBag.Operator = new SelectList(operators);
+            ViewBag.Eigenschap = new SelectList(TamagotchiModel.GetAllProperties());
             return View();
         }
 
@@ -69,7 +72,7 @@ namespace Prog6.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamerEffect.Type);
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamerEffect.HotelkamerType);
             return View(hotelkamerEffect);
         }
 

@@ -6,12 +6,12 @@ using Prog6.Models;
 
 namespace Prog6.Respositories.Interfaces
 {
-    public interface IHotelkamerRepository
+    public interface IHotelkamerRepository : IDisposable
     {
         HotelkamerModel Get(int id);
-        HotelkamerModel Get(string type);
         HotelkamerModel GetByGroote(int groote);
         List<HotelkamerModel> GetAll();
+        List<HotelkamerModel> GetAllByType(HotelkamerTypeModel hotelkamerType);
         void Create(HotelkamerModel hotelkamer);
         void Update(HotelkamerModel hotelkamer);
         void Delete(HotelkamerModel hotelkamer);

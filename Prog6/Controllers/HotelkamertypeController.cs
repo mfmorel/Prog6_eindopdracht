@@ -14,14 +14,15 @@ using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Controllers
 {
-    [Export]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
-    public class Hotelkamer_typeController : Controller
+
+    public class HotelkamertypeController : Controller
     {
         private IHotelkamerTypeRepository _hotelkamerTypeRepository;
-        public Hotelkamer_typeController(IHotelkamerTypeRepository hotelkamerTypeRepository)
+        private IHotelkamerRepository _hotelkamerRepository;
+        public HotelkamertypeController(IHotelkamerTypeRepository hotelkamerTypeRepository, IHotelkamerRepository hotelkamerRepository)
         {
             _hotelkamerTypeRepository = hotelkamerTypeRepository;
+            _hotelkamerRepository = hotelkamerRepository;
         }
 
         // GET: Hotelkamer_type
@@ -61,6 +62,7 @@ namespace Prog6.Controllers
             if (ModelState.IsValid)
             {
                 _hotelkamerTypeRepository.Create(hotelkamerType);
+                _hotelkamerTypeRepository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -119,6 +121,13 @@ namespace Prog6.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             HotelkamerTypeModel hotelkamerType = _hotelkamerTypeRepository.Get(id);
+
+            if (_hotelkamerRepository.GetAllByType(hotelkamerType).Count > 0)
+            {
+                ViewBag.ErrorMessage = "Er zijn nog hotelkamers met deze type kamer, pas deze kamers eerst aan!";
+                return View(hotelkamerType);
+            }
+
             _hotelkamerTypeRepository.Delete(hotelkamerType);
             _hotelkamerTypeRepository.Save();
             return RedirectToAction("Index");

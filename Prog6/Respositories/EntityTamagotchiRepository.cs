@@ -51,7 +51,7 @@ namespace Prog6.Respositories
 
         public void Delete(TamagotchiModel tamagotchi)
         {
-            throw new NotImplementedException();
+            _context.Tamagotchis.Remove(tamagotchi.ToModel());
         }
 
         public void Save()

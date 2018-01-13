@@ -218,10 +218,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BoekenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelkamersController.cs" />
-    <Compile Include="Controllers\Hotelkamer_effectController.cs" />
-    <Compile Include="Controllers\Hotelkamer_typeController.cs" />
+    <Compile Include="Controllers\HotelkamereffectController.cs" />
+    <Compile Include="Controllers\HotelkamertypeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MefControllerFactory.cs" />
     <Compile Include="Controllers\TamagotchisController.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BoekingModel.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\HomeIndexModel.cs" />
     <Compile Include="Models\HotelkamerEffectModel.cs" />
     <Compile Include="Models\HotelkamerModel.cs" />
     <Compile Include="Models\HotelkamerTypeModel.cs" />
@@ -315,27 +317,28 @@
     <Content Include="Views\Hotelkamers\Details.cshtml" />
     <Content Include="Views\Hotelkamers\Edit.cshtml" />
     <Content Include="Views\Hotelkamers\Index.cshtml" />
-    <Content Include="Views\Hotelkamer_type\Create.cshtml" />
-    <Content Include="Views\Hotelkamer_type\Delete.cshtml" />
-    <Content Include="Views\Hotelkamer_type\Details.cshtml" />
-    <Content Include="Views\Hotelkamer_type\Edit.cshtml" />
-    <Content Include="Views\Hotelkamer_type\Index.cshtml" />
+    <Content Include="Views\Hotelkamertype\Create.cshtml" />
+    <Content Include="Views\Hotelkamertype\Delete.cshtml" />
+    <Content Include="Views\Hotelkamertype\Details.cshtml" />
+    <Content Include="Views\Hotelkamertype\Edit.cshtml" />
+    <Content Include="Views\Hotelkamertype\Index.cshtml" />
     <Content Include="Views\Tamagotchis\Create.cshtml" />
     <Content Include="Views\Tamagotchis\Delete.cshtml" />
     <Content Include="Views\Tamagotchis\Details.cshtml" />
     <Content Include="Views\Tamagotchis\Edit.cshtml" />
     <Content Include="Views\Tamagotchis\Index.cshtml" />
-    <Content Include="Views\Hotelkamer_effect\Create.cshtml" />
-    <Content Include="Views\Hotelkamer_effect\Delete.cshtml" />
-    <Content Include="Views\Hotelkamer_effect\Details.cshtml" />
-    <Content Include="Views\Hotelkamer_effect\Edit.cshtml" />
-    <Content Include="Views\Hotelkamer_effect\Index.cshtml" />
+    <Content Include="Views\Hotelkamereffect\Create.cshtml" />
+    <Content Include="Views\Hotelkamereffect\Delete.cshtml" />
+    <Content Include="Views\Hotelkamereffect\Details.cshtml" />
+    <Content Include="Views\Hotelkamereffect\Edit.cshtml" />
+    <Content Include="Views\Hotelkamereffect\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Boeken\" />
     <Folder Include="Views\CustomControllerFactory\" />
   </ItemGroup>
   <ItemGroup>

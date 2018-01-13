@@ -14,7 +14,6 @@ namespace Prog6.Models
         public int Id
         {
             get { return _tamagotchi.Id; }
-            // ?????
             set { _tamagotchi.Id = value; }
         }
 
@@ -81,6 +80,17 @@ namespace Prog6.Models
         public Tamagotchi ToModel()
         {
             return _tamagotchi;
+        }
+
+        public static List<string> GetAllProperties()
+        {
+            return new List<string>(new []
+            {
+                "Centjes",
+                "Gezondheid",
+                "Level",
+                "Verveling"
+            });
         }
     }
 }

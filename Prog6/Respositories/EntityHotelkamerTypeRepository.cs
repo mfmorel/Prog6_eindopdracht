@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Prog6.Models;
@@ -17,7 +18,7 @@ namespace Prog6.Respositories
         }
         public HotelkamerTypeModel Get(string id)
         {
-            throw new NotImplementedException();
+            return _context.HotelkamerTypes.Where(h => h.Type.Equals(id)).Select(h => new HotelkamerTypeModel() {_hotelkamerType = h}).FirstOrDefault();
         }
 
         public HotelkamerTypeModel GetByName(string name)
@@ -27,27 +28,32 @@ namespace Prog6.Respositories
 
         public List<HotelkamerTypeModel> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.HotelkamerTypes.Select(h => new HotelkamerTypeModel() {_hotelkamerType = h}).ToList();
         }
 
-        public void Create(HotelkamerTypeModel tamagotchi)
+        public void Create(HotelkamerTypeModel hotelkamerType)
         {
-            throw new NotImplementedException();
+            _context.HotelkamerTypes.Add(hotelkamerType.ToModel());
         }
 
-        public void Update(HotelkamerTypeModel tamagotchi)
+        public void Update(HotelkamerTypeModel hotelkamerType)
         {
-            throw new NotImplementedException();
+            _context.Entry(hotelkamerType.ToModel()).State = EntityState.Modified;
         }
 
-        public void Delete(HotelkamerTypeModel tamagotchi)
+        public void Delete(HotelkamerTypeModel hotelkamerType)
         {
-            throw new NotImplementedException();
+            _context.HotelkamerTypes.Remove(hotelkamerType.ToModel());
         }
 
         public void Save()
         {
-            
+            _context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }

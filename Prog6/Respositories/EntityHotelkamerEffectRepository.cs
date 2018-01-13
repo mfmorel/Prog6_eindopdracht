@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Prog6.Models;
@@ -9,39 +10,46 @@ namespace Prog6.Respositories
 {
     public class EntityHotelkamerEffectRepository : IHotelkamerEffectRepository
     {
+        private Prog6Context _context;
+
+        public EntityHotelkamerEffectRepository(Prog6Context context)
+        {
+            _context = context;
+        }
+
         public HotelkamerEffectModel Get(string name)
         {
-            throw new NotImplementedException();
+            return _context.HotelkamerEffects.Where(h => h.Naam.Equals(name)).Select(h => new HotelkamerEffectModel() {_hotelkamerEffect = h}).FirstOrDefault();
         }
 
         public List<HotelkamerEffectModel> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.HotelkamerEffects.Select(h => new HotelkamerEffectModel() {_hotelkamerEffect = h}).ToList();
         }
 
-        public void Create(HotelkamerEffectModel tamagotchi)
+        public void Create(HotelkamerEffectModel hotelkamerEffect)
         {
-            throw new NotImplementedException();
+            _context.HotelkamerEffects.Add(hotelkamerEffect.ToModel());
         }
 
-        public void Update(HotelkamerEffectModel tamagotchi)
+        public void Update(HotelkamerEffectModel hotelkamerEffect)
         {
-            throw new NotImplementedException();
+            _context.Entry(hotelkamerEffect.ToModel()).State = EntityState.Modified;
         }
 
-        public void Delete(HotelkamerEffectModel tamagotchi)
+        public void Delete(HotelkamerEffectModel hotelkamerEffect)
         {
-            throw new NotImplementedException();
+            _context.HotelkamerEffects.Remove(hotelkamerEffect.ToModel());
         }
 
         public void Save()
         {
-            
+            _context.SaveChanges();
         }
 
         public void Dispose()
         {
-            
+            _context.Dispose();
         }
     }
 }

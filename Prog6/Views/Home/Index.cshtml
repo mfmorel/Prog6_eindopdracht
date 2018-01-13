@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Prog6.Models.TamagotchiModel>
+﻿@model Prog6.Models.HomeIndexModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -11,14 +11,97 @@
 
 <div class="row">
     <div class="col-md-6">
-        <!-- Overview of tamagotchi's that are alive -->
-        
-
+        <h2>Alive Tamagotchi's</h2>
+        <table class="table">
+            <tr>
+                <th>Naam</th>
+                <th>Level</th>
+                <th>Gezondheid</th>
+                <th>Levend</th>
+            </tr>
+            <!-- Overview of tamagotchi's that are alive -->
+            @foreach (var item in Model.AliveTamagotchis) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Level)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gezondheid)
+                    </td>
+                
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Levend)
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
+
     <div class="col-md-6">
         <!-- Overview of tamagotchi's that are dead -->
+        <h2>Dead Tamagotchi's</h2>
+        <table class="table">
+            <tr>
+                <th>Naam</th>
+                <th>Level</th>
+                <th>Gezondheid</th>
+                <th>Levend</th>
+            </tr>
+            <!-- Overview of tamagotchi's that are alive -->
+            @foreach (var item in Model.DeadTamagotchis)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Level)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gezondheid)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Levend)
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
+</div>
+<div class="row">
     <div class="col-md-6">
         <!-- Overview of tamagotchi's without a room -->
+        <h2>Room less Tamagotchi's</h2>
+        <table class="table">
+            <tr>
+                <th>Naam</th>
+                <th>Level</th>
+                <th>Gezondheid</th>
+                <th></th>
+            </tr>
+            <!-- Overview of tamagotchi's that are alive -->
+            @foreach (var item in Model.RoomlessTamagotchis)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Level)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gezondheid)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Kamer boeken", "Index", "Home", new {@class = "btn btn-primary"})
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
 </div>

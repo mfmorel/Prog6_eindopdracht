@@ -7,7 +7,7 @@ using Prog6.Models;
 
 namespace Prog6.Respositories.Interfaces
 {
-    public interface IHotelkamerTypeRepository
+    public interface IHotelkamerTypeRepository : IDisposable
     {
         HotelkamerTypeModel Get(string id);
         HotelkamerTypeModel GetByName(string name);
