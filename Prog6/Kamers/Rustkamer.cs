@@ -9,12 +9,14 @@ namespace Prog6.Kamers
     public class Rustkamer : IKamer
     {
         public string Name { get; set; }
+        public string Description { get; set; }
         public int Price { get; private set; }
 
         public Rustkamer()
         {
             Name = "De rustkamer";
             Price = 10;
+            Description = Name + " $" + Price;
         }
 
         public void Nacht(List<TamagotchiModel> tamagotchi)

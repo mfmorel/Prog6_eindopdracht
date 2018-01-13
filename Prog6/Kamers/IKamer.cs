@@ -10,6 +10,7 @@ namespace Prog6.Kamers
     public interface IKamer
     {
         string Name { get; set; }
+        string Description { get; set; }
         int Price { get; }
         void Nacht(List<TamagotchiModel> tamagotchi);
     }
