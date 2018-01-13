@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Prog6.Interfaces;
+using Prog6.Kamers;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
 
@@ -46,9 +47,10 @@ namespace Prog6.Controllers
         // GET: Hotelkamers/Create
         public ActionResult Create()
         {
-            ViewBag.Type = new SelectList(new string[] {"De rustkamer", "De vechtkamer", "De gamekamer", "De werkkamer"});
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type");
             int[] Groote = new[] {2, 3, 5 };
             ViewBag.Groote = new SelectList(Groote);
+            ViewBag.Type = new SelectList(Kamer.GetKamers());
             return View();
         }
 
@@ -67,7 +69,7 @@ namespace Prog6.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(new string[] { "De rustkamer", "De vechtkamer", "De gamekamer", "De werkkamer" }, hotelkamer.Type);
+            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Type);
 
             return View(hotelkamer);
         }
@@ -84,8 +86,7 @@ namespace Prog6.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Type = new SelectList(new string[] { "De rustkamer", "De vechtkamer", "De gamekamer", "De werkkamer" }, hotelkamer.Type);
-
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Type);
             ViewBag.Groote = new SelectList(new int[] {2, 3, 5}, hotelkamer.Groote);
             return View(hotelkamer);
         }
@@ -104,8 +105,7 @@ namespace Prog6.Controllers
                 _hotelkamerRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.Type = new SelectList(new string[] { "De rustkamer", "De vechtkamer", "De gamekamer", "De werkkamer" }, hotelkamer.Type);
-
+            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Type);
             return View(hotelkamer);
         }
 
