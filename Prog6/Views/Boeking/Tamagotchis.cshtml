@@ -19,16 +19,20 @@
         @for (int idx = 0; idx < Model.Tamagotchis.Count; idx++) {
             <tr>
                 <td>
-                    @Html.HiddenFor(x=>Model.Tamagotchis[idx].Id)
+                    @Html.HiddenFor(x=> Model.Tamagotchis[idx].Id)
                     @Html.CheckBoxFor(x=>Model.Tamagotchis[idx].IsSelected)
                     @Html.DisplayFor(x => Model.Tamagotchis[idx].Naam)
                     @Html.DisplayFor(x => Model.Tamagotchis[idx].Centjes)
+                    @Html.HiddenFor(x => Model.Tamagotchis[idx].Centjes)
                     @Html.HiddenFor(x => Model.Tamagotchis[idx].Naam)
                 </td>
             </tr>
         }
         
         @Html.HiddenFor(x => Model.Hotelkamer.Id)
+        @Html.HiddenFor(x => Model.Hotelkamer.Type)
+        @Html.HiddenFor(x => Model.Hotelkamer.Groote)
+
 
     </table>
     <button type="submit" id="btnSave">Save</button>

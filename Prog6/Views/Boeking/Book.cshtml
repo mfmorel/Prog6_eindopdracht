@@ -3,30 +3,38 @@
     ViewBag.Title = "Book";
 }
 
-
-@using (Html.BeginForm("Confirm", "Boeking", FormMethod.Post)) {
 <p>
     <h4>Hotelkamer:</h4>
     Kamersoort: @Html.DisplayFor(model => model.Hotelkamer.Type) <br />
     Groote: @Html.DisplayFor(model => model.Hotelkamer.Groote)
-    
-    @Html.HiddenFor(model => model.Hotelkamer.Id)
 </p>
 
-   
-     <table>
-         @for (int idx = 0; idx < Model.Tamagotchis.Count; idx++) {
-             <tr>
-                 <td>
-                     @Html.HiddenFor(x=>Model.Tamagotchis[idx].Id)
-                     @Html.DisplayFor(x => Model.Tamagotchis[idx].Naam)
-                     @Html.HiddenFor(x => Model.Tamagotchis[idx].Naam)
-                     @Html.DisplayFor(x => Model.Tamagotchis[idx].Centjes)
-                 </td>
-             </tr>
-         }
-        
+@using (Html.BeginForm("Confirm", "Boeking", FormMethod.Post))
+{
 
-     </table>
-     <button type="submit" id="btnSave">Bevestig</button>
- }
+    <table>
+        Count: @Model.Tamagotchis.Count
+        @for (int idx = 0; idx < Model.Tamagotchis.Count; idx++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(x => Model.Tamagotchis[idx].Id)
+                    @Html.DisplayFor(x => Model.Tamagotchis[idx].Naam)
+                    @Html.DisplayFor(x => Model.Tamagotchis[idx].Centjes)
+
+                    <input type="hidden" name="Tamagotchis[@idx].Id" value="@Model.Tamagotchis[idx].Id"/>
+                    <input type="hidden" name="Tamagotchis[@idx].Centjes" value="@Model.Tamagotchis[idx].Centjes" />
+                    <input type="hidden" name="Tamagotchis[@idx].Naam" value="@Model.Tamagotchis[idx].Naam" />
+                    <input type="hidden" name="Tamagotchis[@idx].IsSelected" value="@Model.Tamagotchis[idx].IsSelected" />
+                </td>
+            </tr>
+        }
+
+        @Html.HiddenFor(x => Model.Hotelkamer.Id)
+        @Html.HiddenFor(x => Model.Hotelkamer.Type)
+        @Html.HiddenFor(x => Model.Hotelkamer.Groote)
+
+
+    </table>
+    <button type="submit" id="btnSave">Save</button>
+}

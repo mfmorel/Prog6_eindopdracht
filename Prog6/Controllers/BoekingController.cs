@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -46,14 +47,14 @@ namespace Prog6.Controllers
         [HttpPost]
         public ActionResult Book(BoekingModel boeking)
         {
-            boeking.Hotelkamer = _hotelkamerRepository.Get(boeking.Hotelkamer.Id);
-            boeking.Tamagotchis = boeking.Tamagotchis.Where(t => t.IsSelected.Equals(true)).Select(t => _tamagotchiRepository.Get(t.Id)).ToList();
+            boeking.Tamagotchis = boeking.Tamagotchis.Where(m => m.IsSelected == true).ToList();
             return View(boeking);
         }
 
         [HttpPost]
         public ActionResult Confirm(BoekingModel boeking)
         {
+
             Console.Write(boeking);
             return View();
         }
