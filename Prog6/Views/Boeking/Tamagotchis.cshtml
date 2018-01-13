@@ -17,15 +17,20 @@
 {
    
     <table>
-        @for (int idx = 0; idx < Model.Tamagotchis.Count; idx++) {
+        @for (int idx = 0; idx < Model.AvTamagotchis.Count; idx++) {
             <tr>
                 <td>
-                    @Html.HiddenFor(x=> Model.Tamagotchis[idx].Id)
-                    @Html.CheckBoxFor(x=>Model.Tamagotchis[idx].IsSelected)
-                    @Html.DisplayFor(x => Model.Tamagotchis[idx].Naam)
-                    @Html.DisplayFor(x => Model.Tamagotchis[idx].Centjes)
-                    @Html.HiddenFor(x => Model.Tamagotchis[idx].Centjes)
-                    @Html.HiddenFor(x => Model.Tamagotchis[idx].Naam)
+                    @Html.HiddenFor(x=> Model.AvTamagotchis[idx].Id)
+                    @Html.CheckBoxFor(x=>Model.AvTamagotchis[idx].IsSelected)
+                    @Html.DisplayFor(x => Model.AvTamagotchis[idx].Naam)
+                    @Html.DisplayFor(x => Model.AvTamagotchis[idx].Centjes)
+                    @Html.HiddenFor(x => Model.AvTamagotchis[idx].Centjes)
+                    @Html.HiddenFor(x => Model.AvTamagotchis[idx].Naam)
+                    @Html.HiddenFor(x => Model.AvTamagotchis[idx].Level)
+                    @Html.HiddenFor(x => Model.AvTamagotchis[idx].Leeftijd)
+                    @Html.HiddenFor(x => Model.AvTamagotchis[idx].Levend)
+                    @Html.HiddenFor(x => Model.AvTamagotchis[idx].Gezondheid)
+                    @Html.HiddenFor(x => Model.AvTamagotchis[idx].Verveling)
                 </td>
             </tr>
         }

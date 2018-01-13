@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security.Provider;
 using Prog6.Kamers;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
@@ -40,7 +41,7 @@ namespace Prog6.Controllers
             List<TamagotchiModel> tamagotchis = _tamagotchiRepository.GetAllAlive().Where(t => t.Centjes >= hotelkamer.Prijs).ToList();
             if (tamagotchis.Count > 0)
             {
-                boekingModel.Tamagotchis = tamagotchis;
+                boekingModel.AvTamagotchis = tamagotchis;
                 return View(boekingModel);
             }
 
@@ -50,7 +51,10 @@ namespace Prog6.Controllers
         [HttpPost]
         public ActionResult Book(BoekingModel boeking)
         {
-            boeking.Tamagotchis = boeking.Tamagotchis.Where(m => m.IsSelected == true).ToList();
+            boeking.Tamagotchis = boeking.AvTamagotchis.Where(m => m.IsSelected == true).ToList();
+
+            if (boeking.Tamagotchis == null)
+                return RedirectToAction("Tamagotchis", "Boeking", new {id = boeking.Hotelkamer.Id});
 
             return View(boeking);
         }
@@ -60,14 +64,6 @@ namespace Prog6.Controllers
         {
             _boekingRepository.Create(boeking);
             _boekingRepository.Save();
-
-            foreach (var tamagotchi in boeking.Tamagotchis)
-            {
-                tamagotchi.Centjes -= boeking.Hotelkamer.Prijs;
-                _tamagotchiRepository.Update(tamagotchi);
-            }
-
-            _tamagotchiRepository.Save();
 
             return View();
         }
