@@ -57,12 +57,6 @@
     <Compile Include="Hotelkamer.cs">
       <DependentUpon>Prog6Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Hotelkamer_effect.cs">
-      <DependentUpon>Prog6Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Hotelkamer_type.cs">
-      <DependentUpon>Prog6Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Prog6Entities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

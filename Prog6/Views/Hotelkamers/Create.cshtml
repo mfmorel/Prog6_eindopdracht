@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Groote, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Groote, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Groote", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Groote, "", new { @class = "text-danger" })
             </div>
         </div>

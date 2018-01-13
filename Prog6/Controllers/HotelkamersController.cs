@@ -49,6 +49,8 @@ namespace Prog6.Controllers
         public ActionResult Create()
         {
             ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type");
+            int[] Groote = new[] {2, 3, 5 };
+            ViewBag.Groote = new SelectList(Groote);
             return View();
         }
 
@@ -84,7 +86,8 @@ namespace Prog6.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Hotelkamer_type);
+            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Type);
+            ViewBag.Groote = new SelectList(new int[] {2, 3, 5}, hotelkamer.Groote);
             return View(hotelkamer);
         }
 

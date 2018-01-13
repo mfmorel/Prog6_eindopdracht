@@ -27,24 +27,6 @@
           <Property Name="Groote" Type="int" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="255" />
         </EntityType>
-        <EntityType Name="Hotelkamer_effect">
-          <Key>
-            <PropertyRef Name="Naam" />
-            <PropertyRef Name="Type" />
-          </Key>
-          <Property Name="Naam" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Type" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Eigenschap" Type="varchar(max)" Nullable="false" />
-          <Property Name="Operator" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Value" Type="varchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Hotelkamer_type">
-          <Key>
-            <PropertyRef Name="Type" />
-          </Key>
-          <Property Name="Type" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Kosten" Type="int" />
-        </EntityType>
         <EntityType Name="Tamagotchi">
           <Key>
             <PropertyRef Name="Id" />
@@ -82,36 +64,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Hotelkamer_effect_Hotelkamer_type">
-          <End Role="Hotelkamer_type" Type="Self.Hotelkamer_type" Multiplicity="1" />
-          <End Role="Hotelkamer_effect" Type="Self.Hotelkamer_effect" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotelkamer_type">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="Hotelkamer_effect">
-              <PropertyRef Name="Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Hotelkamer_Hotelkamer_Type">
-          <End Role="Hotelkamer_type" Type="Self.Hotelkamer_type" Multiplicity="0..1" />
-          <End Role="Hotelkamer" Type="Self.Hotelkamer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotelkamer_type">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="Hotelkamer">
-              <PropertyRef Name="Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Prog6ModelStoreContainer">
           <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Boekingen" EntityType="Self.Boekingen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotelkamer" EntityType="Self.Hotelkamer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Hotelkamer_effect" EntityType="Self.Hotelkamer_effect" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Hotelkamer_type" EntityType="Self.Hotelkamer_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tamagotchi" EntityType="Self.Tamagotchi" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Boekingen_Hotelkamer" Association="Self.FK_Boekingen_Hotelkamer">
             <End Role="Hotelkamer" EntitySet="Hotelkamer" />
@@ -120,14 +76,6 @@
           <AssociationSet Name="FK_Boekingen_Tamagotchi" Association="Self.FK_Boekingen_Tamagotchi">
             <End Role="Tamagotchi" EntitySet="Tamagotchi" />
             <End Role="Boekingen" EntitySet="Boekingen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Hotelkamer_effect_Hotelkamer_type" Association="Self.FK_Hotelkamer_effect_Hotelkamer_type">
-            <End Role="Hotelkamer_type" EntitySet="Hotelkamer_type" />
-            <End Role="Hotelkamer_effect" EntitySet="Hotelkamer_effect" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Hotelkamer_Hotelkamer_Type" Association="Self.FK_Hotelkamer_Hotelkamer_Type">
-            <End Role="Hotelkamer_type" EntitySet="Hotelkamer_type" />
-            <End Role="Hotelkamer" EntitySet="Hotelkamer" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -148,29 +96,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Groote" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Hotelkamer_type" Relationship="Self.FK_Hotelkamer_Hotelkamer_Type" FromRole="Hotelkamer" ToRole="Hotelkamer_type" />
           <NavigationProperty Name="Tamagotchis" Relationship="Self.Boekingen" FromRole="Hotelkamer" ToRole="Tamagotchi" />
-        </EntityType>
-        <EntityType Name="Hotelkamer_effect">
-          <Key>
-            <PropertyRef Name="Naam" />
-            <PropertyRef Name="Type" />
-          </Key>
-          <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Eigenschap" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Operator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Hotelkamer_type" Relationship="Self.FK_Hotelkamer_effect_Hotelkamer_type" FromRole="Hotelkamer_effect" ToRole="Hotelkamer_type" />
-        </EntityType>
-        <EntityType Name="Hotelkamer_type">
-          <Key>
-            <PropertyRef Name="Type" />
-          </Key>
-          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Kosten" Type="Int32" />
-          <NavigationProperty Name="Hotelkamers" Relationship="Self.FK_Hotelkamer_Hotelkamer_Type" FromRole="Hotelkamer_type" ToRole="Hotelkamer" />
-          <NavigationProperty Name="Hotelkamer_effect" Relationship="Self.FK_Hotelkamer_effect_Hotelkamer_type" FromRole="Hotelkamer_type" ToRole="Hotelkamer_effect" />
         </EntityType>
         <EntityType Name="Tamagotchi">
           <Key>
@@ -186,30 +112,6 @@
           <Property Name="Levend" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Hotelkamers" Relationship="Self.Boekingen" FromRole="Tamagotchi" ToRole="Hotelkamer" />
         </EntityType>
-        <Association Name="FK_Hotelkamer_Hotelkamer_Type">
-          <End Role="Hotelkamer_type" Type="Self.Hotelkamer_type" Multiplicity="0..1" />
-          <End Role="Hotelkamer" Type="Self.Hotelkamer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotelkamer_type">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="Hotelkamer">
-              <PropertyRef Name="Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Hotelkamer_effect_Hotelkamer_type">
-          <End Role="Hotelkamer_type" Type="Self.Hotelkamer_type" Multiplicity="1" />
-          <End Role="Hotelkamer_effect" Type="Self.Hotelkamer_effect" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotelkamer_type">
-              <PropertyRef Name="Type" />
-            </Principal>
-            <Dependent Role="Hotelkamer_effect">
-              <PropertyRef Name="Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Boekingen">
           <End Role="Hotelkamer" Type="Self.Hotelkamer" Multiplicity="*" />
           <End Role="Tamagotchi" Type="Self.Tamagotchi" Multiplicity="*" />
@@ -217,17 +119,7 @@
         <EntityContainer Name="Prog6Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
           <EntitySet Name="Hotelkamers" EntityType="Self.Hotelkamer" />
-          <EntitySet Name="Hotelkamer_effect" EntityType="Self.Hotelkamer_effect" />
-          <EntitySet Name="Hotelkamer_type" EntityType="Self.Hotelkamer_type" />
           <EntitySet Name="Tamagotchis" EntityType="Self.Tamagotchi" />
-          <AssociationSet Name="FK_Hotelkamer_Hotelkamer_Type" Association="Self.FK_Hotelkamer_Hotelkamer_Type">
-            <End Role="Hotelkamer_type" EntitySet="Hotelkamer_type" />
-            <End Role="Hotelkamer" EntitySet="Hotelkamers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Hotelkamer_effect_Hotelkamer_type" Association="Self.FK_Hotelkamer_effect_Hotelkamer_type">
-            <End Role="Hotelkamer_type" EntitySet="Hotelkamer_type" />
-            <End Role="Hotelkamer_effect" EntitySet="Hotelkamer_effect" />
-          </AssociationSet>
           <AssociationSet Name="Boekingen" Association="Self.Boekingen">
             <End Role="Hotelkamer" EntitySet="Hotelkamers" />
             <End Role="Tamagotchi" EntitySet="Tamagotchis" />
@@ -252,25 +144,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Groote" ColumnName="Groote" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Hotelkamer_effect">
-            <EntityTypeMapping TypeName="Prog6Model.Hotelkamer_effect">
-              <MappingFragment StoreEntitySet="Hotelkamer_effect">
-                <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Eigenschap" ColumnName="Eigenschap" />
-                <ScalarProperty Name="Operator" ColumnName="Operator" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Hotelkamer_type">
-            <EntityTypeMapping TypeName="Prog6Model.Hotelkamer_type">
-              <MappingFragment StoreEntitySet="Hotelkamer_type">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Kosten" ColumnName="Kosten" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
