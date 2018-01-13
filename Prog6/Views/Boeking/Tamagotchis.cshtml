@@ -12,7 +12,7 @@
     Groote: @Html.DisplayFor(model => model.Hotelkamer.Groote)
 </p>
 
-@using (Html.BeginForm("Index", "Boeking", FormMethod.Post))
+@using (Html.BeginForm("Book", "Boeking", FormMethod.Post))
 {
    
     <table>
@@ -27,6 +27,9 @@
                 </td>
             </tr>
         }
+        
+        @Html.HiddenFor(x => Model.Hotelkamer.Id)
+
     </table>
     <button type="submit" id="btnSave">Save</button>
 }

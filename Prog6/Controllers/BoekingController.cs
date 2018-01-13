@@ -13,7 +13,6 @@ namespace Prog6.Controllers
         private IBoekingRepository _boekingRepository;
         private IHotelkamerRepository _hotelkamerRepository;
         private ITamagotchiRepository _tamagotchiRepository;
-        private BoekingModel _boekingModel;
 
         public BoekingController(IBoekingRepository boekingRepository, IHotelkamerRepository hotelkamerRepository, ITamagotchiRepository tamagotchiRepository)
         {
@@ -29,20 +28,34 @@ namespace Prog6.Controllers
 
         public ActionResult Tamagotchis(int id)
         {
-            _boekingModel = new BoekingModel();
+            BoekingModel boekingModel = new BoekingModel();
             HotelkamerModel hotelkamer = _hotelkamerRepository.Get(id);
             if (hotelkamer != null)
-                _boekingModel.Hotelkamer = hotelkamer;
+                boekingModel.Hotelkamer = hotelkamer;
 
             List<TamagotchiModel> tamagotchis = _tamagotchiRepository.GetAllAlive();
             if (tamagotchis != null && tamagotchis.Count > 0)
             {
-                _boekingModel.Tamagotchis = tamagotchis;
-                return View(_boekingModel);
+                boekingModel.Tamagotchis = tamagotchis;
+                return View(boekingModel);
             }
 
             return Index();
         }
 
+        [HttpPost]
+        public ActionResult Book(BoekingModel boeking)
+        {
+            boeking.Hotelkamer = _hotelkamerRepository.Get(boeking.Hotelkamer.Id);
+            boeking.Tamagotchis = boeking.Tamagotchis.Where(t => t.IsSelected.Equals(true)).Select(t => _tamagotchiRepository.Get(t.Id)).ToList();
+            return View(boeking);
+        }
+
+        [HttpPost]
+        public ActionResult Confirm(BoekingModel boeking)
+        {
+            Console.Write(boeking);
+            return View();
+        }
     }
 }

@@ -218,7 +218,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BoekenController.cs" />
     <Compile Include="Controllers\BoekingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelkamersController.cs" />
@@ -324,10 +323,10 @@
     <Content Include="Views\Boeking\Index.cshtml" />
     <Content Include="Views\Boeking\Tamagotchis.cshtml" />
     <Content Include="Views\Boeking\Book.cshtml" />
+    <Content Include="Views\Boeking\Confirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Boeken\" />
     <Folder Include="Views\CustomControllerFactory\" />
   </ItemGroup>
   <ItemGroup>
