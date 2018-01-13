@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Domain;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
 
@@ -37,19 +39,29 @@ namespace Prog6.Respositories
                 .Select(h => new HotelkamerModel() {_Hotelkamer = h}).ToList();
         }
 
-        public void Create(BoekingModel tamagotchi)
+        public void Create(BoekingModel boeking)
+        {
+            Hotelkamer hk = _context.Hotelkamers.First(h => h.Id.Equals(boeking.Hotelkamer.Id));
+            foreach (TamagotchiModel tamagotchiModel in boeking.Tamagotchis)
+            {
+                hk.Tamagotchis.Add(_context.Tamagotchis.First(t => t.Id.Equals(tamagotchiModel.Id)));
+            }
+            _context.Entry(hk).State = EntityState.Modified;
+        }
+
+        public void Update(BoekingModel boeking)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(BoekingModel tamagotchi)
+        public void Delete(BoekingModel boeking)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(BoekingModel tamagotchi)
+        public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

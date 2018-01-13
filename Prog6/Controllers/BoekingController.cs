@@ -54,8 +54,8 @@ namespace Prog6.Controllers
         [HttpPost]
         public ActionResult Confirm(BoekingModel boeking)
         {
-
-            Console.Write(boeking);
+            _boekingRepository.Create(boeking);
+            _boekingRepository.Save();
             return View();
         }
     }
