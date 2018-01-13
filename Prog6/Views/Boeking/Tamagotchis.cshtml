@@ -1,0 +1,32 @@
+﻿@model Prog6.Models.BoekingModel
+
+@{
+    ViewBag.Title = "Tamagotchis";
+}
+
+<h2>Tamagotchis</h2>
+
+<p>
+    <h4>Hotelkamer:</h4>
+    Kamersoort: @Html.DisplayFor(model => model.Hotelkamer.Type) <br/>
+    Groote: @Html.DisplayFor(model => model.Hotelkamer.Groote)
+</p>
+
+@using (Html.BeginForm("Index", "Boeking", FormMethod.Post))
+{
+   
+    <table>
+        @for (int idx = 0; idx < Model.Tamagotchis.Count; idx++) {
+            <tr>
+                <td>
+                    @Html.HiddenFor(x=>Model.Tamagotchis[idx].Id)
+                    @Html.CheckBoxFor(x=>Model.Tamagotchis[idx].IsSelected)
+                    @Html.DisplayFor(x => Model.Tamagotchis[idx].Naam)
+                    @Html.DisplayFor(x => Model.Tamagotchis[idx].Centjes)
+                    @Html.HiddenFor(x => Model.Tamagotchis[idx].Naam)
+                </td>
+            </tr>
+        }
+    </table>
+    <button type="submit" id="btnSave">Save</button>
+}

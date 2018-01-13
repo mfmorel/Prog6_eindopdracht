@@ -52,8 +52,6 @@ namespace Prog6.App_Start
 
                 kernel.Bind<ITamagotchiRepository>().To<EntityTamagotchiRepository>();
                 kernel.Bind<IHotelkamerRepository>().To<EntityHotelkamerRepository>();
-                kernel.Bind<IHotelkamerEffectRepository>().To<EntityHotelkamerEffectRepository>();
-                kernel.Bind<IHotelkamerTypeRepository>().To<EntityHotelkamerTypeRepository>();
                 kernel.Bind<IBoekingRepository>().To<EntityBoekingRepository>();
 
                 RegisterServices(kernel);

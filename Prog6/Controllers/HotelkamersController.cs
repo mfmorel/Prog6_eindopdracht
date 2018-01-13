@@ -17,12 +17,10 @@ namespace Prog6.Controllers
     public class HotelkamersController : Controller
     {
         private IHotelkamerRepository _hotelkamerRepository;
-        private IHotelkamerTypeRepository _hotelkamerTypeRepository;
 
-        public HotelkamersController(IHotelkamerRepository hotelkamerRepository, IHotelkamerTypeRepository hotelkamerTypeRepository)
+        public HotelkamersController(IHotelkamerRepository hotelkamerRepository)
         {
             _hotelkamerRepository = hotelkamerRepository;
-            _hotelkamerTypeRepository = hotelkamerTypeRepository;
         }
         // GET: Hotelkamers
         public ActionResult Index()
@@ -48,7 +46,7 @@ namespace Prog6.Controllers
         // GET: Hotelkamers/Create
         public ActionResult Create()
         {
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type");
+            ViewBag.Type = new SelectList(new string[] {"De rustkamer", "De vechtkamer", "De gamekamer", "De werkkamer"});
             int[] Groote = new[] {2, 3, 5 };
             ViewBag.Groote = new SelectList(Groote);
             return View();
@@ -69,7 +67,7 @@ namespace Prog6.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Hotelkamer_type);
+            ViewBag.Type = new SelectList(new string[] { "De rustkamer", "De vechtkamer", "De gamekamer", "De werkkamer" }, hotelkamer.Type);
 
             return View(hotelkamer);
         }
@@ -86,7 +84,8 @@ namespace Prog6.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Type);
+            ViewBag.Type = new SelectList(new string[] { "De rustkamer", "De vechtkamer", "De gamekamer", "De werkkamer" }, hotelkamer.Type);
+
             ViewBag.Groote = new SelectList(new int[] {2, 3, 5}, hotelkamer.Groote);
             return View(hotelkamer);
         }
@@ -105,7 +104,8 @@ namespace Prog6.Controllers
                 _hotelkamerRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.Type = new SelectList(_hotelkamerTypeRepository.GetAll(), "Type", "Type", hotelkamer.Hotelkamer_type);
+            ViewBag.Type = new SelectList(new string[] { "De rustkamer", "De vechtkamer", "De gamekamer", "De werkkamer" }, hotelkamer.Type);
+
             return View(hotelkamer);
         }
 

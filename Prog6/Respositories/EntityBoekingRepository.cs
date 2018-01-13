@@ -9,6 +9,13 @@ namespace Prog6.Respositories
 {
     public class EntityBoekingRepository : IBoekingRepository
     {
+        public Prog6Context _context;
+
+        public EntityBoekingRepository(Prog6Context context)
+        {
+            _context = context;
+        }
+
         public BoekingModel Get(TamagotchiModel tamagotchi)
         {
             throw new NotImplementedException();
@@ -22,6 +29,12 @@ namespace Prog6.Respositories
         public List<BoekingModel> GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        public List<HotelkamerModel> GetAvailableRooms()
+        {
+            return _context.Hotelkamers.Where(h => h.Tamagotchis.Count().Equals(0))
+                .Select(h => new HotelkamerModel() {_Hotelkamer = h}).ToList();
         }
 
         public void Create(BoekingModel tamagotchi)

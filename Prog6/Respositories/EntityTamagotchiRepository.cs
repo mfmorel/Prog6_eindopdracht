@@ -36,7 +36,12 @@ namespace Prog6.Respositories
 
         public List<TamagotchiModel> GetAll()
         {
-            return _context.Tamagotchis.Select((t) => new TamagotchiModel() {_tamagotchi = t}).ToList();
+            return _context.Tamagotchis.Select((t) => new TamagotchiModel() {_tamagotchi = t, IsSelected = false}).ToList();
+        }
+
+        public List<TamagotchiModel> GetAllAlive()
+        {
+            return _context.Tamagotchis.Where(t => t.Level.Equals(1)).Select(t => new TamagotchiModel() { _tamagotchi = t, IsSelected = false }).ToList();
         }
 
         public void Create(TamagotchiModel tamagotchi)

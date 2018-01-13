@@ -11,7 +11,7 @@ namespace Prog6.Respositories.Interfaces
         HotelkamerModel Get(int id);
         HotelkamerModel GetByGroote(int groote);
         List<HotelkamerModel> GetAll();
-        List<HotelkamerModel> GetAllByType(HotelkamerTypeModel hotelkamerType);
+        List<HotelkamerModel> GetAllByType(string hotelkamerType);
         void Create(HotelkamerModel hotelkamer);
         void Update(HotelkamerModel hotelkamer);
         void Delete(HotelkamerModel hotelkamer);

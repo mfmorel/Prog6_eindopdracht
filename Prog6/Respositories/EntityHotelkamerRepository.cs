@@ -32,9 +32,10 @@ namespace Prog6.Respositories
             return _context.Hotelkamers.Select(h => new HotelkamerModel() {_Hotelkamer = h}).ToList();
         }
 
-        public List<HotelkamerModel> GetAllByType(HotelkamerTypeModel hotelkamerType)
+        public List<HotelkamerModel> GetAllByType(string hotelkamerType)
         {
-            return _context.Hotelkamers.Where(h => h.Type.Equals(hotelkamerType.Type)).Select(h => new HotelkamerModel() {_Hotelkamer = h}).ToList();
+            //return _context.Hotelkamers.Where(h => h.Type.Equals(hotelkamerType.Type)).Select(h => new HotelkamerModel() {_Hotelkamer = h}).ToList();
+            return null;
         }
 
         public void Create(HotelkamerModel hotelkamer)

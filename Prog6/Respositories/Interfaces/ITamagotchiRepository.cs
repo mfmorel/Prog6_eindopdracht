@@ -12,6 +12,7 @@ namespace Prog6.Respositories.Interfaces
         TamagotchiModel Get(int id);
         TamagotchiModel Get(string name);
         List<TamagotchiModel> GetAll();
+        List<TamagotchiModel> GetAllAlive();
         void Create(TamagotchiModel tamagotchi);
         void Update(TamagotchiModel tamagotchi);
         void Delete(TamagotchiModel tamagotchi);

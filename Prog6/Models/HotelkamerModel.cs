@@ -35,11 +35,11 @@ namespace Prog6.Models
             set { _Hotelkamer.Type = value; }
         }
 
-        public Hotelkamer_type Hotelkamer_type
-        {
-            get { return _Hotelkamer.Hotelkamer_type; }
-            set { _Hotelkamer.Hotelkamer_type = value; }
-        }
+//        public Hotelkamer_type Hotelkamer_type
+//        {
+//            get { return _Hotelkamer.Hotelkamer_type; }
+//            set { _Hotelkamer.Hotelkamer_type = value; }
+//        }
 
         public HotelkamerModel(Hotelkamer hotelkamer)
         {

@@ -67,6 +67,8 @@ namespace Prog6.Models
             set { _tamagotchi.Verveling = value; }
         }
 
+        public bool IsSelected { get; set; }
+
         public TamagotchiModel(Tamagotchi tamagotchi)
         {
             _tamagotchi = tamagotchi;
