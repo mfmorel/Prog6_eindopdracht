@@ -24,7 +24,7 @@ namespace Prog6.Controllers
         public ActionResult Index()
         {
             // List<BoekingModel> boekingen = _boekingRepository.GetAll();
-            _hotelkamerRepository.GetAll().ForEach(k =>
+            _hotelkamerRepository.GetAll().Where(h => h.Tamagotchis.Count > 0).ToList().ForEach(k =>
             {
                 IKamer kamer = Kamer.GetKamer(k.Type);
                 kamer.Nacht(k.Tamagotchis.Select(t => new TamagotchiModel() {_tamagotchi = t}).ToList());

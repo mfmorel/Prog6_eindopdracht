@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using Prog6.Models;
-using Prog6.Respositories.Interfaces;
 
 namespace Prog6.Kamers
 {
-    public class Rustkamer : IKamer
+    public class Gamekamer : IKamer
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Price { get; private set; }
+        public int Price { get; }
 
-        public Rustkamer()
+        public Gamekamer()
         {
-            Name = "De rustkamer";
-            Price = 10;
+            Name = "De gamekamer";
+            Price = 20;
             Description = Name + " $" + Price;
         }
 
@@ -27,8 +25,7 @@ namespace Prog6.Kamers
             {
                 if (t.HasEnoughCentjes(Price))
                 {
-                    t.Gezondheid += 20;
-                    t.Verveling += 10;
+                    t.Verveling = 0;
                     t.Centjes -= Price;
                     t.Leeftijd += 1;
                     t.Level += 1;

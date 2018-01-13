@@ -10,10 +10,7 @@ namespace Prog6.Kamers
     {
         public static List<IKamer> GetKamers()
         {
-            return new List<IKamer>(new []
-            {
-                new Rustkamer()
-            });
+            return new List<IKamer>() {new Werkkamer(), new Vechtkamer(), new Gamekamer(), new Rustkamer()};
         }
 
         public static IKamer GetKamer(string kamer)
@@ -22,6 +19,12 @@ namespace Prog6.Kamers
             {
                 case "De rustkamer":
                     return new Rustkamer();
+                case "De gamekamer":
+                    return new Gamekamer();
+                case "De vechtkamer":
+                    return new Vechtkamer();
+                case "De werkkamer":
+                    return new Werkkamer();
             }
 
             return null;

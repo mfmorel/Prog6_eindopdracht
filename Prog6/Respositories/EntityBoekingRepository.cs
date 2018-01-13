@@ -39,6 +39,12 @@ namespace Prog6.Respositories
                 .Select(h => new HotelkamerModel() {_Hotelkamer = h}).ToList();
         }
 
+        public List<HotelkamerModel> GetBookedRooms()
+        {
+            return _context.Hotelkamers.Where(h => h.Tamagotchis.Count > 0)
+                .Select(h => new HotelkamerModel() { _Hotelkamer = h }).ToList();
+        }
+
         public void Create(BoekingModel boeking)
         {
             Hotelkamer hk = _context.Hotelkamers.First(h => h.Id.Equals(boeking.Hotelkamer.Id));

@@ -14,6 +14,7 @@ namespace Prog6.Respositories.Interfaces
         List<BoekingModel> GetAll();
         List<HotelkamerModel> GetAvailableRooms();
         BoekingModel GetByRoom(HotelkamerModel hotelkamer);
+        List<HotelkamerModel> GetBookedRooms();
         void Create(BoekingModel boeking);
         void Update(BoekingModel boeking);
         void Delete(BoekingModel boeking);

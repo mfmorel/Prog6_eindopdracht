@@ -229,9 +229,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IContext.cs" />
+    <Compile Include="Kamers\Gamekamer.cs" />
+    <Compile Include="Kamers\Geenkamer.cs" />
     <Compile Include="Kamers\IKamer.cs" />
     <Compile Include="Kamers\Kamer.cs" />
     <Compile Include="Kamers\Rustkamer.cs" />
+    <Compile Include="Kamers\Vechtkamer.cs" />
+    <Compile Include="Kamers\Werkkamer.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BoekingModel.cs" />

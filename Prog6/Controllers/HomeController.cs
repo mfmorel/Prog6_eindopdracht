@@ -28,14 +28,19 @@ namespace Prog6.Controllers
             List<TamagotchiModel> AllTamagotchis = _tamagotchiRepository.GetAll();
             List<TamagotchiModel> AliveTamagotchis = AllTamagotchis.Where(t => t.Levend == 1).ToList();
             List<TamagotchiModel> DeadTamagotchis = AllTamagotchis.Where(t => t.Levend == 0).ToList();
-            List<TamagotchiModel> RoomlessTamagotchis = new List<TamagotchiModel>(AllTamagotchis);
-            _hotelkamerRepository.GetAll().ForEach((h) =>
+            List<TamagotchiModel> RoomlessTamagotchis = new List<TamagotchiModel>(AliveTamagotchis);
+            _hotelkamerRepository.GetAll().Where(t => t.Tamagotchis.Count > 0).ToList().ForEach((h) =>
             {
-                Debug.WriteLine(h.Id + " " + h.Tamagotchis.Count + " / " + RoomlessTamagotchis.Count);
                 foreach (var objTamagotchi in h.Tamagotchis)
                 {
-                    if (RoomlessTamagotchis.Contains(new TamagotchiModel(objTamagotchi)))
-                        RoomlessTamagotchis.Remove(new TamagotchiModel(objTamagotchi));
+                    for (int i = 0; i < RoomlessTamagotchis.Count; i++)
+                    {
+                        if (RoomlessTamagotchis[i].Id == objTamagotchi.Id)
+                        {
+                            RoomlessTamagotchis.Remove(RoomlessTamagotchis[i]);
+                            i--;
+                        }
+                    }
                 }
             });
             return View(new HomeIndexModel()
