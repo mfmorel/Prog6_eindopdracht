@@ -9,7 +9,8 @@
 <p>
     <h4>Hotelkamer:</h4>
     Kamersoort: @Html.DisplayFor(model => model.Hotelkamer.Type) <br/>
-    Groote: @Html.DisplayFor(model => model.Hotelkamer.Groote)
+    Groote: @Html.DisplayFor(model => model.Hotelkamer.Groote) <br />
+    Prijs: @Html.DisplayFor(model => model.Hotelkamer.Prijs)
 </p>
 
 @using (Html.BeginForm("Book", "Boeking", FormMethod.Post))
@@ -32,6 +33,7 @@
         @Html.HiddenFor(x => Model.Hotelkamer.Id)
         @Html.HiddenFor(x => Model.Hotelkamer.Type)
         @Html.HiddenFor(x => Model.Hotelkamer.Groote)
+        @Html.HiddenFor(x => Model.Hotelkamer.Prijs)
 
 
     </table>

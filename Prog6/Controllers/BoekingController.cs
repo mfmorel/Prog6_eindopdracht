@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Prog6.Kamers;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
 
@@ -31,11 +32,13 @@ namespace Prog6.Controllers
         {
             BoekingModel boekingModel = new BoekingModel();
             HotelkamerModel hotelkamer = _hotelkamerRepository.Get(id);
+            hotelkamer.Prijs = Kamer.GetKamer(hotelkamer.Type).Price;
+
             if (hotelkamer != null)
                 boekingModel.Hotelkamer = hotelkamer;
 
-            List<TamagotchiModel> tamagotchis = _tamagotchiRepository.GetAllAlive();
-            if (tamagotchis != null && tamagotchis.Count > 0)
+            List<TamagotchiModel> tamagotchis = _tamagotchiRepository.GetAllAlive().Where(t => t.Centjes >= hotelkamer.Prijs).ToList();
+            if (tamagotchis.Count > 0)
             {
                 boekingModel.Tamagotchis = tamagotchis;
                 return View(boekingModel);
@@ -48,14 +51,24 @@ namespace Prog6.Controllers
         public ActionResult Book(BoekingModel boeking)
         {
             boeking.Tamagotchis = boeking.Tamagotchis.Where(m => m.IsSelected == true).ToList();
+
             return View(boeking);
         }
 
         [HttpPost]
         public ActionResult Confirm(BoekingModel boeking)
         {
+            _boekingRepository.Create(boeking);
+            _boekingRepository.Save();
 
-            Console.Write(boeking);
+            foreach (var tamagotchi in boeking.Tamagotchis)
+            {
+                tamagotchi.Centjes -= boeking.Hotelkamer.Prijs;
+                _tamagotchiRepository.Update(tamagotchi);
+            }
+
+            _tamagotchiRepository.Save();
+
             return View();
         }
     }

@@ -17,5 +17,6 @@ namespace Prog6.Respositories.Interfaces
         void Create(BoekingModel boeking);
         void Update(BoekingModel boeking);
         void Delete(BoekingModel boeking);
+        void Save();
     }
 }
