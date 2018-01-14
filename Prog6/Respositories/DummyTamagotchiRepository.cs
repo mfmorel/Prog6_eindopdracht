@@ -10,24 +10,10 @@ namespace Prog6.Respositories
 {
     public class DummyTamagotchiRepository : ITamagotchiRepository
     {
-        public void Dispose()
+        private List<TamagotchiModel> _tamagotchis;
+        public DummyTamagotchiRepository()
         {
-            throw new NotImplementedException();
-        }
-
-        public TamagotchiModel Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TamagotchiModel Get(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<TamagotchiModel> GetAll()
-        {
-            return new List<TamagotchiModel>()
+            _tamagotchis = new List<TamagotchiModel>()
             {
                 new TamagotchiModel() { Naam = "Henk" },
                 new TamagotchiModel() { Naam = "Jan" },
@@ -39,6 +25,30 @@ namespace Prog6.Respositories
             };
         }
 
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public TamagotchiModel Get(int id)
+        {
+            if (_tamagotchis[id] != null)
+                return _tamagotchis[id];
+
+            return null;
+        }
+
+        public TamagotchiModel Get(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TamagotchiModel> GetAll()
+        {
+            return _tamagotchis;
+        }
+
         public List<TamagotchiModel> GetAllAlive()
         {
             throw new NotImplementedException();
@@ -46,22 +56,22 @@ namespace Prog6.Respositories
 
         public void Create(TamagotchiModel tamagotchi)
         {
-            throw new NotImplementedException();
+            _tamagotchis.Add(tamagotchi);
         }
 
         public void Update(TamagotchiModel tamagotchi)
         {
-            throw new NotImplementedException();
+            _tamagotchis[_tamagotchis.IndexOf(tamagotchi)] = tamagotchi;
         }
 
         public void Delete(TamagotchiModel tamagotchi)
         {
-            throw new NotImplementedException();
+            _tamagotchis.Remove(tamagotchi);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public Tamagotchi Test()
