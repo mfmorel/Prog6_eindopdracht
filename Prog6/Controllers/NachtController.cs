@@ -13,17 +13,44 @@ namespace Prog6.Controllers
     {
         private IHotelkamerRepository _hotelkamerRepository;
         private IBoekingRepository _boekingRepository;
+        private ITamagotchiRepository _tamagotchiRepository;
 
-        public NachtController(IHotelkamerRepository hotelkamerRepository, IBoekingRepository boekingRepository)
+        public NachtController(IHotelkamerRepository hotelkamerRepository, IBoekingRepository boekingRepository, ITamagotchiRepository tamagotchiRepository)
         {
             _hotelkamerRepository = hotelkamerRepository;
             _boekingRepository = boekingRepository;
+            _tamagotchiRepository = tamagotchiRepository;
         }
 
         // GET: Nacht
         public ActionResult Index()
         {
-            // List<BoekingModel> boekingen = _boekingRepository.GetAll();
+            List<TamagotchiModel> RoomlessTamagotchis = _tamagotchiRepository.GetAll();
+            _hotelkamerRepository.GetAll().Where(t => t.Tamagotchis.Count > 0).ToList().ForEach((h) =>
+            {
+                foreach (var objTamagotchi in h.Tamagotchis)
+                {
+                    for (int i = 0; i < RoomlessTamagotchis.Count; i++)
+                    {
+                        if (RoomlessTamagotchis[i].Id == objTamagotchi.Id)
+                        {
+                            RoomlessTamagotchis.Remove(RoomlessTamagotchis[i]);
+                            i--;
+                        }
+                    }
+                }
+            });
+
+            RoomlessTamagotchis.ForEach((t) =>
+            {
+                t.Verveling += 20;
+                t.Gezondheid -= 20;
+                t.Leeftijd += 1;
+                t.Level += 1;
+                _tamagotchiRepository.Update(t);
+            });
+            _tamagotchiRepository.Save();
+
             _hotelkamerRepository.GetAll().Where(h => h.Tamagotchis.Count > 0).ToList().ForEach(k =>
             {
                 IKamer kamer = Kamer.GetKamer(k.Type);
@@ -35,7 +62,7 @@ namespace Prog6.Controllers
                 _hotelkamerRepository.Save();
             });
 
-            ViewBag.NachtComplete = "Er is een nieuwe dag aangebroken!";
+            TempData["NachtComplete"] = "Er is een nieuwe dag aangebroken!";
 
             return RedirectToAction("Index", "Home");
         }

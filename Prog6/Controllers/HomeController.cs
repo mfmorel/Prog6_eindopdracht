@@ -43,6 +43,10 @@ namespace Prog6.Controllers
                     }
                 }
             });
+
+            if (TempData["NachtComplete"] != null)
+                ViewBag.NachtComplete = TempData["NachtComplete"];
+
             return View(new HomeIndexModel()
             {
                 AllTamagotchis = AllTamagotchis,
