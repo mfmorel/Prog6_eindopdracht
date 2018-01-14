@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Domain;
-using Prog6.Interfaces;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
 

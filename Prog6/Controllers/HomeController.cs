@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
-using Prog6.Interfaces;
 using Prog6.Respositories.Interfaces;
 using Prog6.Models;
 

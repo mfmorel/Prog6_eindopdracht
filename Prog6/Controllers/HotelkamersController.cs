@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
-using Prog6.Interfaces;
 using Prog6.Kamers;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
@@ -68,7 +67,7 @@ namespace Prog6.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Type);
+            ViewBag.Type = new SelectList(Kamer.GetKamers(), "Name", "Description", hotelkamer.Type);
 
             return View(hotelkamer);
         }
@@ -85,7 +84,7 @@ namespace Prog6.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Type);
+            ViewBag.Type = new SelectList(Kamer.GetKamers(), "Name", "Description", hotelkamer.Type);
             ViewBag.Groote = new SelectList(new int[] {2, 3, 5}, hotelkamer.Groote);
             return View(hotelkamer);
         }
@@ -104,13 +103,18 @@ namespace Prog6.Controllers
                 _hotelkamerRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.Type = new SelectList(Kamer.GetKamers(), hotelkamer.Type);
+            ViewBag.Type = new SelectList(Kamer.GetKamers(), "Name", "Description", hotelkamer.Type);
             return View(hotelkamer);
         }
 
         // GET: Hotelkamers/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (TempData["Error"] != null)
+            {
+                ViewBag.Error = TempData["Error"].ToString();
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -128,10 +132,18 @@ namespace Prog6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            HotelkamerModel tamagotchi = _hotelkamerRepository.Get(id);
-            _hotelkamerRepository.Delete(tamagotchi);
-            _hotelkamerRepository.Save();
-            return RedirectToAction("Index");
+            HotelkamerModel hotelkamer = _hotelkamerRepository.Get(id);
+            if (hotelkamer.Tamagotchis.Count == 0)
+            {
+                _hotelkamerRepository.Delete(hotelkamer);
+                _hotelkamerRepository.Save();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Error"] = "Er is nog een openstaande boeking voor deze hotelkamer.";
+                return RedirectToAction("Delete", new {id = hotelkamer.Id});
+            }
         }
 
         protected override void Dispose(bool disposing)

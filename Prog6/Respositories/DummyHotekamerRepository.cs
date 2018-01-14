@@ -9,25 +9,11 @@ namespace Prog6.Respositories
 {
     public class DummyHotekamerRepository : IHotelkamerRepository
     {
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+        private List<HotelkamerModel> _hotelkamers;
 
-        public HotelkamerModel Get(int id)
+        public DummyHotekamerRepository()
         {
-            throw new NotImplementedException();
-        }
-
-        public HotelkamerModel GetByGroote(int groote)
-        {
-            throw new NotImplementedException();
-        }
-
-        // TODO tamagochis toevoegen voor de reserveringen
-        public List<HotelkamerModel> GetAll()
-        {
-            return new List<HotelkamerModel>()
+            _hotelkamers = new List<HotelkamerModel>()
             {
                 new HotelkamerModel()
                 {
@@ -60,6 +46,30 @@ namespace Prog6.Respositories
             };
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public HotelkamerModel Get(int id)
+        {
+            if (_hotelkamers[id] != null)
+                return _hotelkamers[id];
+
+            return null;
+        }
+
+        public HotelkamerModel GetByGroote(int groote)
+        {
+            throw new NotImplementedException();
+        }
+
+        // TODO tamagochis toevoegen voor de reserveringen
+        public List<HotelkamerModel> GetAll()
+        {
+            return _hotelkamers;
+        }
+
         public List<HotelkamerModel> GetAllByType(string hotelkamerType)
         {
             throw new NotImplementedException();
@@ -67,22 +77,22 @@ namespace Prog6.Respositories
 
         public void Create(HotelkamerModel hotelkamer)
         {
-            throw new NotImplementedException();
+            _hotelkamers.Add(hotelkamer);
         }
 
         public void Update(HotelkamerModel hotelkamer)
         {
-            throw new NotImplementedException();
+            _hotelkamers[_hotelkamers.IndexOf(hotelkamer)] = hotelkamer;
         }
 
         public void Delete(HotelkamerModel hotelkamer)
         {
-            throw new NotImplementedException();
+            _hotelkamers.Remove(hotelkamer);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            return;
         }
     }
 }

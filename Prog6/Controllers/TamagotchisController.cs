@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Ninject;
-using Prog6.Interfaces;
 using Prog6.Models;
 using Prog6.Respositories.Interfaces;
 
@@ -114,6 +114,11 @@ namespace Prog6.Controllers
         // GET: Tamagotchis/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (TempData["Error"] != null)
+            {
+                ViewBag.Error = TempData["Error"].ToString();
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -132,8 +137,16 @@ namespace Prog6.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TamagotchiModel tamagotchi = _tamagotchiRepository.Get(id);
-            _tamagotchiRepository.Delete(tamagotchi);
-            _tamagotchiRepository.Save();
+            if (tamagotchi.HotelKamers.Count == 0)
+            {
+                _tamagotchiRepository.Delete(tamagotchi);
+                _tamagotchiRepository.Save();
+            }
+            else
+            {
+                TempData["Error"] = "Er is nog een openstaande boeking voor deze tamagotchi.";
+                return RedirectToAction("Delete", new { id = tamagotchi.Id });
+            }
             return RedirectToAction("Index");
         }
 

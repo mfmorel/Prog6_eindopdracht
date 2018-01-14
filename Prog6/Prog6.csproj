@@ -217,18 +217,14 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BoekingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelkamersController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MefControllerFactory.cs" />
     <Compile Include="Controllers\NachtController.cs" />
     <Compile Include="Controllers\TamagotchisController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IContext.cs" />
     <Compile Include="Kamers\Gamekamer.cs" />
     <Compile Include="Kamers\Geenkamer.cs" />
     <Compile Include="Kamers\IKamer.cs" />
@@ -239,7 +235,6 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BoekingModel.cs" />
-    <Compile Include="Models\Context.cs" />
     <Compile Include="Models\HomeIndexModel.cs" />
     <Compile Include="Models\HotelkamerModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -335,6 +330,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Interfaces\" />
     <Folder Include="Views\CustomControllerFactory\" />
     <Folder Include="Views\Nacht\" />
   </ItemGroup>

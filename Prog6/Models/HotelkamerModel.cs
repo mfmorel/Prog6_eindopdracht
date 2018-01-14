@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Domain;
@@ -17,6 +19,8 @@ namespace Prog6.Models
             set { _Hotelkamer.Id = value; }
         }
 
+        [Required]
+        [DefaultValue(2)]
         public int Groote
         {
             get { return _Hotelkamer.Groote; }
@@ -29,12 +33,15 @@ namespace Prog6.Models
             set { _Hotelkamer.Tamagotchis = value; }
         }
 
+        [Required]
+        [DefaultValue("Geen kamer")]
         public string Type
         {
             get { return _Hotelkamer.Type; }
             set { _Hotelkamer.Type = value; }
         }
 
+        [DefaultValue(10)]
         public int Prijs { get; set; }
 
 //        public Hotelkamer_type Hotelkamer_type
