@@ -247,6 +247,9 @@
     <Compile Include="Models\Prog6Context.cs" />
     <Compile Include="Models\TamagotchiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Respositories\DummyBoekingRepository.cs" />
+    <Compile Include="Respositories\DummyHotekamerRepository.cs" />
+    <Compile Include="Respositories\DummyTamagotchiRepository.cs" />
     <Compile Include="Respositories\EntityBoekingRepository.cs" />
     <Compile Include="Respositories\EntityHotelkamerRepository.cs" />
     <Compile Include="Respositories\EntityTamagotchiRepository.cs" />
