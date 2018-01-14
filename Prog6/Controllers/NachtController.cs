@@ -25,7 +25,7 @@ namespace Prog6.Controllers
         // GET: Nacht
         public ActionResult Index()
         {
-            List<TamagotchiModel> RoomlessTamagotchis = _tamagotchiRepository.GetAll();
+            List<TamagotchiModel> RoomlessTamagotchis = _tamagotchiRepository.GetAllAlive();
             _hotelkamerRepository.GetAll().Where(t => t.Tamagotchis.Count > 0).ToList().ForEach((h) =>
             {
                 foreach (var objTamagotchi in h.Tamagotchis)
